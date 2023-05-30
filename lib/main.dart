@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Munch Mate',
       theme: ThemeData(
-          primarySwatch: Colors.amber,
+          primarySwatch: Colors.green,
           textTheme: GoogleFonts.ralewayTextTheme()),
       home: const HomeScreen(),
     );

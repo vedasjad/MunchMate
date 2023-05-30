@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:munchmate/utils/colors.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -14,22 +15,40 @@ class _HomeScreenState extends State<HomeScreen> {
     var height = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
-        leading: const Icon(Icons.menu),
-        title: const Text("MunchMate"),
+        backgroundColor: primaryColor,
+        leading: const Icon(
+          Icons.menu,
+          size: 30,
+        ),
+        title: Text(
+          "MunchMate",
+          style: TextStyle(
+            fontSize: width * 0.06,
+          ),
+        ),
       ),
-      backgroundColor: Color(0xffF2EFEA),
+      backgroundColor: backgroundColor,
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: primaryColor,
+        onPressed: () {},
+        tooltip: "Your Cart",
+        child: const Icon(
+          Icons.fastfood_rounded,
+          color: Colors.white,
+        ),
+      ),
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.symmetric(horizontal: 8.0),
           child: SingleChildScrollView(
             child: Column(
               children: [
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Text(
-                    "Today's Menu",
+                    "In Today's Menu",
                     style: TextStyle(
-                      fontSize: width * 0.07,
+                      fontSize: width * 0.065,
                       fontWeight: FontWeight.w900,
                     ),
                   ),
@@ -63,87 +82,14 @@ class _HomeScreenState extends State<HomeScreen> {
                     physics: const NeverScrollableScrollPhysics(),
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 2,
-                      crossAxisSpacing: 8.0,
+                      crossAxisSpacing: width * 0.03,
                       mainAxisSpacing: 0.0,
-                      mainAxisExtent: height / 4,
+                      mainAxisExtent: height / 4.3,
                     ),
-                    itemCount: 4,
+                    itemCount: 8,
                     shrinkWrap: true,
                     itemBuilder: (BuildContext ctx, index) {
-                      return Stack(
-                        children: [
-                          Container(
-                            margin: const EdgeInsets.all(15),
-                            padding: const EdgeInsets.all(0),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(5),
-                              color: Colors.green,
-                              shape: BoxShape.rectangle,
-                            ),
-                          ),
-                          Container(
-                            margin:
-                                EdgeInsets.fromLTRB(15, 15, 15, width * 0.13),
-                            padding: const EdgeInsets.all(0),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(5),
-                              color: Colors.white,
-                              shape: BoxShape.rectangle,
-                            ),
-                            child: Stack(
-                              children: [
-                                ClipRRect(
-                                  borderRadius: BorderRadius.circular(5.0),
-                                  child: Image.network(
-                                    "https://freesvg.org/img/1548610988.png",
-                                    fit: BoxFit.cover,
-                                  ),
-                                ),
-                                ClipRRect(
-                                  borderRadius: BorderRadius.circular(5.0),
-                                  child: Container(
-                                    decoration: const BoxDecoration(
-                                      gradient: LinearGradient(
-                                        colors: [
-                                          Color.fromARGB(255, 0, 0, 0),
-                                          Color.fromARGB(150, 0, 0, 0),
-                                          Color.fromARGB(10, 255, 255, 255)
-                                        ],
-                                        begin: Alignment.bottomCenter,
-                                        end: Alignment.center,
-                                      ),
-                                      backgroundBlendMode: BlendMode.dstOut,
-                                    ),
-                                  ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    mainAxisAlignment: MainAxisAlignment.end,
-                                    children: const [
-                                      Text(
-                                        'Chhole Bhature',
-                                        style: TextStyle(
-                                          color: Colors.white,
-                                        ),
-                                      ),
-                                      Text(
-                                        'Rs. 100',
-                                        style: TextStyle(
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.w600,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      );
+                      return ItemCard(height: height, width: width);
                     },
                   ),
                 ),
@@ -152,6 +98,158 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ),
       ),
+    );
+  }
+}
+
+class ItemCard extends StatelessWidget {
+  const ItemCard({
+    super.key,
+    required this.height,
+    required this.width,
+  });
+
+  final double height;
+  final double width;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Container(
+          height: height / 6,
+          width: width / 2.5,
+          margin: const EdgeInsets.fromLTRB(0, 15, 0, 0),
+          padding: const EdgeInsets.all(0),
+          decoration: const BoxDecoration(
+            borderRadius: BorderRadius.only(
+              topRight: Radius.circular(5),
+              topLeft: Radius.circular(5),
+            ),
+            color: Colors.white,
+            shape: BoxShape.rectangle,
+          ),
+          child: Stack(
+            children: [
+              ClipRRect(
+                borderRadius: const BorderRadius.only(
+                  topRight: Radius.circular(5),
+                  topLeft: Radius.circular(5),
+                ),
+                child: Image.network(
+                  "https://tse4.mm.bing.net/th?id=OIP.L0W1f9Vubv05fn-C63I5UwHaGq&pid=Api&P=0&h=180",
+                  fit: BoxFit.fitWidth,
+                ),
+              ),
+              ClipRRect(
+                borderRadius: const BorderRadius.only(
+                  topRight: Radius.circular(5),
+                  topLeft: Radius.circular(5),
+                ),
+                child: Container(
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      begin: FractionalOffset.topCenter,
+                      end: FractionalOffset.bottomCenter,
+                      colors: [
+                        Colors.grey.withOpacity(0.0),
+                        Colors.black,
+                      ],
+                      stops: const [0.25, 1.0],
+                    ),
+                    // backgroundBlendMode: BlendMode.dstOut,
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Icon(
+                          Icons.favorite_border_rounded,
+                          size: width * 0.05,
+                          color: Colors.white,
+                        ),
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        Expanded(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Chhole Bhature',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: width * 0.037,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+        Container(
+          height: width / 10,
+          width: width / 2.5,
+          margin: const EdgeInsets.fromLTRB(0, 0, 0, 0),
+          padding: const EdgeInsets.all(5),
+          decoration: const BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.only(
+              bottomRight: Radius.circular(5),
+              bottomLeft: Radius.circular(5),
+            ),
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                ' ₹ 100',
+                style: TextStyle(
+                  color: Colors.black,
+                  fontWeight: FontWeight.bold,
+                  fontSize: width * 0.04,
+                ),
+              ),
+              Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(5),
+                ),
+                child: ElevatedButton(
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStatePropertyAll(secondaryColor),
+                  ),
+                  onPressed: () {},
+                  child: Text(
+                    'Add',
+                    style: TextStyle(
+                      fontWeight: FontWeight.w800,
+                      fontSize: width * 0.04,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        )
+      ],
     );
   }
 }
@@ -172,10 +270,10 @@ class HeaderButton extends StatelessWidget {
     return Expanded(
       child: Container(
         padding: const EdgeInsets.all(8),
-        margin: const EdgeInsets.all(4),
+        margin: EdgeInsets.symmetric(vertical: 15, horizontal: width * 0.02),
         alignment: AlignmentDirectional.center,
         decoration: BoxDecoration(
-          color: Colors.amber,
+          color: primaryColor,
           borderRadius: BorderRadius.circular(8),
         ),
         child: Row(
@@ -189,8 +287,9 @@ class HeaderButton extends StatelessWidget {
             Text(
               title,
               style: TextStyle(
-                fontSize: width * 0.05,
+                fontSize: width * 0.045,
                 fontWeight: FontWeight.w600,
+                color: Colors.white,
               ),
             ),
           ],
