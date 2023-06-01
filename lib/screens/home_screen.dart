@@ -1,5 +1,17 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 import 'package:munchmate/utils/colors.dart';
+
+const headers = ["All", "Snacks", "Drinks", "Meals", "Favourites"];
+const headerIcons = [
+  "https://freesvg.org/img/fast-food-menu.png",
+  "https://freesvg.org/img/1548610988.png",
+  "https://freesvg.org/img/Gerald_G_Fast_Food_Drinks_(FF_Menu)_5.png",
+  "https://freesvg.org/img/publicdomainq-bento.png",
+  "https://img.icons8.com/tiny-color/64/like.png",
+];
+var selectedHeader = headers[0];
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -14,12 +26,152 @@ class _HomeScreenState extends State<HomeScreen> {
     var width = MediaQuery.of(context).size.width;
     var height = MediaQuery.of(context).size.height;
     return Scaffold(
+      drawer: SafeArea(
+        child: Drawer(
+          shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.only(
+              topRight: Radius.circular(20),
+              bottomRight: Radius.circular(20),
+            ),
+          ),
+          backgroundColor: primaryColor,
+          shadowColor: Colors.black,
+          elevation: 5.0,
+          child: ListView(
+            children: [
+              DrawerHeader(
+                padding: const EdgeInsets.all(10),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Lottie.network(
+                          "https://assets9.lottiefiles.com/temp/lf20_nXwOJj.json",
+                          height: height * 0.1,
+                        ),
+                        Expanded(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text(
+                                  'Mohd Asjad Raza Ansari',
+                                  style: TextStyle(
+                                    fontSize: width * 0.045,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        'mohdasjad2112073@akgec.ac.in',
+                        style: TextStyle(
+                          fontSize: width * 0.035,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              ListTile(
+                title: Text(
+                  'Home',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: width * 0.045,
+                  ),
+                ),
+                leading: Image(
+                  image: Image.network(
+                          "https://img.icons8.com/fluency-systems-regular/48/home.png")
+                      .image,
+                  color: Colors.white,
+                  height: width * 0.08,
+                ),
+                onTap: () {
+                  Navigator.pop(context);
+                },
+              ),
+              ListTile(
+                title: Text(
+                  'Theme',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: width * 0.045,
+                  ),
+                ),
+                leading: Image(
+                  image: Image.network(
+                          "https://img.icons8.com/external-linear-outline-icons-papa-vector/78/external-Light-Mode-interface-linear-outline-icons-papa-vector.png")
+                      .image,
+                  color: Colors.white,
+                  height: width * 0.08,
+                ),
+                onTap: () {
+                  Navigator.pop(context);
+                },
+              ),
+              ListTile(
+                title: Text(
+                  'Report Problem',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: width * 0.045,
+                  ),
+                ),
+                leading: Image(
+                  image: Image.network(
+                          "https://img.icons8.com/puffy/32/experimental-error-puffy.png")
+                      .image,
+                  color: Colors.white,
+                  height: width * 0.08,
+                ),
+                onTap: () {
+                  Navigator.pop(context);
+                },
+              ),
+              ListTile(
+                title: Text(
+                  'Logout',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: width * 0.045,
+                  ),
+                ),
+                leading: Image(
+                  image: Image.network(
+                          "https://img.icons8.com/sf-regular/48/logout-rounded.png")
+                      .image,
+                  color: Colors.white,
+                  height: width * 0.08,
+                ),
+                onTap: () {
+                  Navigator.pop(context);
+                },
+              ),
+            ],
+          ),
+        ),
+      ),
+      drawerDragStartBehavior: DragStartBehavior.start,
+      drawerEnableOpenDragGesture: true,
       appBar: AppBar(
         backgroundColor: primaryColor,
-        leading: const Icon(
-          Icons.menu,
-          size: 30,
-        ),
+        // elevation: 0,
         title: Text(
           "MunchMate",
           style: TextStyle(
@@ -43,37 +195,91 @@ class _HomeScreenState extends State<HomeScreen> {
           child: SingleChildScrollView(
             child: Column(
               children: [
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    "In Today's Menu",
-                    style: TextStyle(
-                      fontSize: width * 0.065,
-                      fontWeight: FontWeight.w900,
-                    ),
-                  ),
-                ),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    HeaderButton(
-                      width: width,
-                      network: "https://freesvg.org/img/1548610988.png",
-                      title: "Snacks",
+                    Expanded(
+                      child: Container(
+                        margin: EdgeInsets.zero,
+                        child: ElevatedButton(
+                          style: ButtonStyle(
+                            backgroundColor:
+                                MaterialStatePropertyAll(backgroundColor),
+                            shape: const MaterialStatePropertyAll(
+                              RoundedRectangleBorder(
+                                borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(5),
+                                ),
+                              ),
+                            ),
+                            elevation: const MaterialStatePropertyAll(0),
+                            splashFactory: NoSplash.splashFactory,
+                          ),
+                          onPressed: () {},
+                          child: Text(
+                            'Menu',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: width * 0.055,
+                              color: primaryColor,
+                            ),
+                          ),
+                        ),
+                      ),
                     ),
-                    HeaderButton(
-                      width: width,
-                      network:
-                          "https://freesvg.org/img/Gerald_G_Fast_Food_Drinks_(FF_Menu)_5.png",
-                      title: "Drinks",
-                    ),
-                    HeaderButton(
-                      width: width,
-                      network:
-                          "https://freesvg.org/img/publicdomainq-bento.png",
-                      title: "Meals",
+                    Expanded(
+                      child: Container(
+                        margin: EdgeInsets.zero,
+                        child: ElevatedButton(
+                          style: ButtonStyle(
+                            backgroundColor:
+                                MaterialStatePropertyAll(backgroundColor),
+                            shape: const MaterialStatePropertyAll(
+                              RoundedRectangleBorder(
+                                borderRadius: BorderRadius.only(
+                                  topRight: Radius.circular(5),
+                                ),
+                              ),
+                            ),
+                            elevation: const MaterialStatePropertyAll(0),
+                            splashFactory: NoSplash.splashFactory,
+                          ),
+                          onPressed: () {},
+                          child: Text(
+                            'Recent Orders',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: width * 0.055,
+                              color: Colors.black,
+                            ),
+                          ),
+                        ),
+                      ),
                     ),
                   ],
+                ),
+                SizedBox(
+                  height: height * 0.1,
+                  child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemExtent: width / 5.3,
+                    shrinkWrap: true,
+                    itemCount: headers.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      return InkWell(
+                        onTap: () {
+                          setState(() {
+                            selectedHeader = headers[index];
+                          });
+                        },
+                        splashFactory: NoSplash.splashFactory,
+                        child: HeaderButton(
+                          width: width,
+                          network: headerIcons[index],
+                          title: headers[index],
+                        ),
+                      );
+                    },
+                  ),
                 ),
                 Container(
                   margin: const EdgeInsets.all(8),
@@ -211,6 +417,13 @@ class ItemCard extends StatelessWidget {
           padding: const EdgeInsets.all(5),
           decoration: const BoxDecoration(
             color: Colors.white,
+            // boxShadow: [
+            //   BoxShadow(
+            //     color: Colors.black12,
+            //     blurRadius: 5,
+            //     spreadRadius: 1,
+            //   )
+            // ],
             borderRadius: BorderRadius.only(
               bottomRight: Radius.circular(5),
               bottomLeft: Radius.circular(5),
@@ -254,47 +467,57 @@ class ItemCard extends StatelessWidget {
   }
 }
 
-class HeaderButton extends StatelessWidget {
-  const HeaderButton({
-    super.key,
-    required this.width,
-    required this.title,
-    required this.network,
-  });
-
+class HeaderButton extends StatefulWidget {
+  const HeaderButton(
+      {required this.width,
+      required this.title,
+      required this.network,
+      Key? key})
+      : super(key: key);
   final double width;
   final String title;
   final String network;
+
+  @override
+  State<HeaderButton> createState() => _HeaderButtonState();
+}
+
+class _HeaderButtonState extends State<HeaderButton> {
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: Container(
-        padding: const EdgeInsets.all(8),
-        margin: EdgeInsets.symmetric(vertical: 15, horizontal: width * 0.02),
-        alignment: AlignmentDirectional.center,
-        decoration: BoxDecoration(
-          color: primaryColor,
-          borderRadius: BorderRadius.circular(8),
+    return Column(
+      children: [
+        Container(
+          padding: const EdgeInsets.all(10),
+          margin: EdgeInsets.fromLTRB(
+              widget.width * 0.02, 10, widget.width * 0.02, 5),
+          alignment: AlignmentDirectional.center,
+          decoration: BoxDecoration(
+            boxShadow: const [
+              BoxShadow(
+                color: Colors.black12,
+                blurRadius: 5,
+                spreadRadius: 1,
+              )
+            ],
+            shape: BoxShape.circle,
+            color:
+                (selectedHeader == widget.title) ? primaryColor : Colors.white,
+          ),
+          child: Image.network(
+            widget.network,
+            width: widget.width * 0.075,
+            fit: BoxFit.fitWidth,
+          ),
         ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            Image.network(
-              network,
-              width: width * 0.06,
-              fit: BoxFit.fitWidth,
-            ),
-            Text(
-              title,
-              style: TextStyle(
-                fontSize: width * 0.045,
-                fontWeight: FontWeight.w600,
-                color: Colors.white,
-              ),
-            ),
-          ],
+        Text(
+          widget.title,
+          style: TextStyle(
+            color: Colors.black,
+            fontSize: widget.width * 0.034,
+          ),
         ),
-      ),
+      ],
     );
   }
 }

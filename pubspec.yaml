@@ -38,7 +38,8 @@ dependencies:
   lottie: ^2.3.2
   google_fonts: ^4.0.4
   animated_bottom_navigation_bar: ^1.2.0
-  
+  flutter_side_menu: ^0.3.2
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

@@ -13,10 +13,11 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Munch Mate',
+      title: 'MunchMate',
       theme: ThemeData(
-          primarySwatch: Colors.green,
-          textTheme: GoogleFonts.ralewayTextTheme()),
+        primarySwatch: Colors.green,
+        textTheme: GoogleFonts.ralewayTextTheme(),
+      ),
       home: const HomeScreen(),
     );
   }
