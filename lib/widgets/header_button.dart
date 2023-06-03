@@ -36,7 +36,7 @@ class _HeaderButtonState extends State<HeaderButton> {
               )
             ],
             shape: BoxShape.circle,
-            color: (selectedHeader == widget.title)
+            color: (selectedItemType == widget.title)
                 ? primaryColor
                 : backgroundColor,
           ),

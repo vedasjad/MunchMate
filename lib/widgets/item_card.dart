@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:munchmate/models/item.dart';
 import 'package:munchmate/utils/colors.dart';
 
 class ItemCard extends StatelessWidget {
   const ItemCard({
     super.key,
+    required this.item,
     required this.height,
     required this.width,
   });
 
+  final Item item;
   final double height;
   final double width;
 
@@ -36,8 +39,8 @@ class ItemCard extends StatelessWidget {
                   topLeft: Radius.circular(5),
                 ),
                 child: Image.network(
-                  "https://tse4.mm.bing.net/th?id=OIP.L0W1f9Vubv05fn-C63I5UwHaGq&pid=Api&P=0&h=180",
-                  fit: BoxFit.fitWidth,
+                  item.imageUrl,
+                  fit: BoxFit.cover,
                 ),
               ),
               ClipRRect(
@@ -85,7 +88,7 @@ class ItemCard extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                'Chhole Bhature',
+                                item.name,
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontWeight: FontWeight.w600,
@@ -126,7 +129,7 @@ class ItemCard extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                ' ₹ 100',
+                ' ₹ ${item.price}',
                 style: TextStyle(
                   color: Colors.black,
                   fontWeight: FontWeight.bold,

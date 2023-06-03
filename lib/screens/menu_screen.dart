@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:munchmate/models/item.dart';
 import 'package:munchmate/utils/constants.dart';
 import 'package:munchmate/widgets/header_button.dart';
 import 'package:munchmate/widgets/item_card.dart';
@@ -19,6 +20,17 @@ class MenuScreen extends StatefulWidget {
 }
 
 class _MenuScreenState extends State<MenuScreen> {
+  List<Item> selectedItemTypeList = [];
+  countItemType(String itemType) {
+    for (int index = 0; index < items.length; index++) {
+      if (items[index].toMap()['type'] == selectedItemType ||
+          selectedItemType == "All") {
+        selectedItemTypeList.add(items[index]);
+      }
+    }
+    return selectedItemTypeList.length;
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -34,19 +46,20 @@ class _MenuScreenState extends State<MenuScreen> {
                   scrollDirection: Axis.horizontal,
                   itemExtent: widget.width / 5.3,
                   shrinkWrap: true,
-                  itemCount: headers.length,
+                  itemCount: itemTypes.length,
                   itemBuilder: (BuildContext context, int index) {
                     return InkWell(
                       onTap: () {
                         setState(() {
-                          selectedHeader = headers[index];
+                          selectedItemType = itemTypes[index];
+                          selectedItemTypeList = [];
                         });
                       },
                       splashFactory: NoSplash.splashFactory,
                       child: HeaderButton(
                         width: widget.width,
                         network: headerIcons[index],
-                        title: headers[index],
+                        title: itemTypes[index],
                       ),
                     );
                   },
@@ -63,13 +76,14 @@ class _MenuScreenState extends State<MenuScreen> {
                     mainAxisSpacing: 0.0,
                     mainAxisExtent: widget.height / 4.3,
                   ),
-                  itemCount: 8,
+                  itemCount: countItemType(selectedItemType),
                   shrinkWrap: true,
                   itemBuilder: (
                     BuildContext ctx,
                     index,
                   ) {
                     return ItemCard(
+                      item: selectedItemTypeList[index],
                       height: widget.height,
                       width: widget.width,
                     );

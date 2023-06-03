@@ -2,6 +2,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:munchmate/screens/menu_screen.dart';
+import 'package:munchmate/screens/orders_screen.dart';
 import 'package:munchmate/screens/recent_orders_screen.dart';
 import 'package:munchmate/utils/colors.dart';
 
@@ -179,7 +180,6 @@ class _HomeScreenState extends State<HomeScreen>
         drawerEnableOpenDragGesture: true,
         appBar: AppBar(
           backgroundColor: primaryColor,
-          // elevation: 0,
           title: Text(
             "MunchMate",
             style: TextStyle(
@@ -204,7 +204,20 @@ class _HomeScreenState extends State<HomeScreen>
         backgroundColor: backgroundColor,
         floatingActionButton: FloatingActionButton(
           backgroundColor: primaryColor,
-          onPressed: () {},
+          onPressed: () {
+            showDialog(
+              context: context,
+              builder: (context) => Dialog(
+                shape: const RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(15),
+                  ),
+                ),
+                backgroundColor: backgroundColor,
+                child: const OrdersScreen(),
+              ),
+            );
+          },
           tooltip: "Your Cart",
           child: const Icon(
             Icons.fastfood_rounded,
