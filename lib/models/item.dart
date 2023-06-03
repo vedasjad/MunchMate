@@ -4,7 +4,7 @@ class Item {
   final String id;
   final String name;
   final String type;
-  final String price;
+  final int price;
   final String imageUrl;
   final String isAvailable;
   Item({
@@ -31,10 +31,10 @@ class Item {
 
   factory Item.fromMap(Map<String, dynamic> map) {
     return Item(
-      id: map['_id'] ?? '',
+      id: map['id'] ?? '',
       name: map['name'] ?? '',
       type: map['type'] ?? '',
-      price: map['price'] ?? '',
+      price: map['price']?.toInt() ?? 0,
       imageUrl: map['imageUrl'] ?? '',
       isAvailable: map['isAvailable'] ?? '',
     );
@@ -48,7 +48,7 @@ class Item {
     String? id,
     String? name,
     String? type,
-    String? price,
+    int? price,
     String? imageUrl,
     String? isAvailable,
   }) {
@@ -64,7 +64,7 @@ class Item {
 
   @override
   String toString() {
-    return 'Item(id: $id,type: $type, name: $name, price: $price, imageUrl: $imageUrl, isAvailable: $isAvailable)';
+    return 'Item(id: $id, name: $name, type: $type, price: $price, imageUrl: $imageUrl, isAvailable: $isAvailable)';
   }
 
   @override

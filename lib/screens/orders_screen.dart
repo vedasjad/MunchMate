@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:munchmate/utils/colors.dart';
-import 'package:munchmate/widgets/order_dialog.dart';
+import 'package:munchmate/utils/constants.dart';
+import 'package:munchmate/widgets/order_card.dart';
 
 class OrdersScreen extends StatefulWidget {
   const OrdersScreen({Key? key}) : super(key: key);
@@ -10,8 +11,25 @@ class OrdersScreen extends StatefulWidget {
 }
 
 class _OrdersScreenState extends State<OrdersScreen> {
+  calculateTotal() {
+    setState(() {
+      totalAmount = 0;
+      for (int index = 0; index < order.items.length; index++) {
+        totalAmount += (order.items[index].price * order.itemCounts[index]);
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+    totalAmount = 0;
+    for (int index = 0; index < order.items.length; index++) {
+      totalAmount += (order.items[index].price * order.itemCounts[index]);
+      if (order.itemCounts[index] == 0) {
+        order.itemCounts.removeAt(index);
+        order.items.removeAt(index);
+      }
+    }
     var width = MediaQuery.of(context).size.width;
     var height = MediaQuery.of(context).size.height;
     return Container(
@@ -43,14 +61,26 @@ class _OrdersScreenState extends State<OrdersScreen> {
                   child: ListView.builder(
                     scrollDirection: Axis.vertical,
                     shrinkWrap: true,
-                    itemCount: 7,
+                    itemCount: order.items.length,
                     itemBuilder: (BuildContext context, int index) {
-                      return const OrderDialog();
+                      return OrderCard(
+                        index: index,
+                        recalculateTotal: calculateTotal,
+                      );
                     },
                   ),
                 ),
                 Row(
                   children: [
+                    Expanded(
+                      child: Text(
+                        "Total : ₹ $totalAmount",
+                        style: TextStyle(
+                          fontWeight: FontWeight.w600,
+                          fontSize: width * 0.05,
+                        ),
+                      ),
+                    ),
                     Expanded(
                       child: ElevatedButton(
                         style: ButtonStyle(
@@ -59,7 +89,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
                         ),
                         onPressed: () {},
                         child: Text(
-                          'Pay Rs. 700',
+                          'Pay',
                           style: TextStyle(
                             fontSize: width * 0.05,
                             fontWeight: FontWeight.w600,

@@ -39,6 +39,8 @@ dependencies:
   google_fonts: ^4.0.4
   animated_bottom_navigation_bar: ^1.2.0
   flutter_side_menu: ^0.3.2
+  fluttertoast: ^8.0.9
+  toast: ^0.3.0
 
 dev_dependencies:
   flutter_test:

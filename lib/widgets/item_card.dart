@@ -1,21 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:munchmate/models/item.dart';
 import 'package:munchmate/utils/colors.dart';
+import 'package:munchmate/utils/constants.dart';
+import 'package:toast/toast.dart';
 
 class ItemCard extends StatelessWidget {
   const ItemCard({
     super.key,
+    required this.parentContext,
     required this.item,
     required this.height,
     required this.width,
   });
-
+  final BuildContext parentContext;
   final Item item;
   final double height;
   final double width;
 
   @override
   Widget build(BuildContext context) {
+    ToastContext toastContext = ToastContext();
+    toastContext.init(context);
     return Column(
       children: [
         Container(
@@ -144,7 +149,25 @@ class ItemCard extends StatelessWidget {
                   style: ButtonStyle(
                     backgroundColor: MaterialStatePropertyAll(secondaryColor),
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    bool flag = false;
+                    for (int index = 0; index < order.items.length; index++) {
+                      if (order.items[index] == item) {
+                        order.itemCounts[index]++;
+                        flag = true;
+                        break;
+                      }
+                    }
+                    if (!flag) {
+                      order.items.add(item);
+                      order.itemCounts.add(1);
+                    }
+                    Toast.show(
+                      '${item.name} added',
+                      backgroundColor: Colors.black.withOpacity(0.8),
+                      backgroundRadius: 15,
+                    );
+                  },
                   child: Text(
                     'Add',
                     style: TextStyle(

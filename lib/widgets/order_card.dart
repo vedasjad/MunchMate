@@ -1,15 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:munchmate/utils/constants.dart';
 
-class OrderDialog extends StatefulWidget {
-  const OrderDialog({Key? key}) : super(key: key);
+class OrderCard extends StatefulWidget {
+  const OrderCard({
+    required this.recalculateTotal,
+    required this.index,
+    Key? key,
+  }) : super(key: key);
+  final Function() recalculateTotal;
+  final int index;
 
   @override
-  State<OrderDialog> createState() => _OrderDialogState();
+  State<OrderCard> createState() => _OrderCardState();
 }
 
-class _OrderDialogState extends State<OrderDialog> {
+class _OrderCardState extends State<OrderCard> {
+  TextEditingController countController = TextEditingController();
   @override
   Widget build(BuildContext context) {
+    countController.text = order.itemCounts[widget.index].toString();
     var width = MediaQuery.of(context).size.width;
     var height = MediaQuery.of(context).size.height;
     return Row(
@@ -18,7 +27,7 @@ class _OrderDialogState extends State<OrderDialog> {
           child: ClipRRect(
             borderRadius: BorderRadius.circular(10),
             child: Image.network(
-              "https://tse4.mm.bing.net/th?id=OIP.L0W1f9Vubv05fn-C63I5UwHaGq&pid=Api&P=0&h=180",
+              order.items[widget.index].imageUrl,
               fit: BoxFit.fill,
               height: width * 0.15,
             ),
@@ -35,7 +44,7 @@ class _OrderDialogState extends State<OrderDialog> {
                 Padding(
                   padding: const EdgeInsets.only(top: 8.0),
                   child: Text(
-                    "Chhole Bhature",
+                    order.items[widget.index].name,
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontWeight: FontWeight.w600,
@@ -47,7 +56,15 @@ class _OrderDialogState extends State<OrderDialog> {
                   children: [
                     Expanded(
                       child: IconButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          setState(() {
+                            if (order.itemCounts[widget.index] > 0) {
+                              order.itemCounts[widget.index]--;
+                              totalAmount -= order.items[widget.index].price;
+                              widget.recalculateTotal;
+                            }
+                          });
+                        },
                         splashRadius: 20,
                         icon: const Icon(
                           Icons.remove,
@@ -57,6 +74,7 @@ class _OrderDialogState extends State<OrderDialog> {
                     ),
                     Expanded(
                       child: TextFormField(
+                        controller: countController,
                         keyboardType: TextInputType.number,
                         textAlign: TextAlign.center,
                         enableSuggestions: false,
@@ -67,7 +85,13 @@ class _OrderDialogState extends State<OrderDialog> {
                     ),
                     Expanded(
                       child: IconButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          setState(() {
+                            order.itemCounts[widget.index]++;
+                            totalAmount += order.items[widget.index].price;
+                            widget.recalculateTotal;
+                          });
+                        },
                         splashRadius: 20,
                         icon: const Icon(
                           Icons.add,
@@ -83,9 +107,9 @@ class _OrderDialogState extends State<OrderDialog> {
         ),
         Expanded(
           child: Column(
-            children: const [
+            children: [
               Text(
-                "Rs. 100",
+                "Rs. ${order.items[widget.index].price}",
               ),
             ],
           ),

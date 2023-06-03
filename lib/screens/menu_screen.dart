@@ -23,8 +23,7 @@ class _MenuScreenState extends State<MenuScreen> {
   List<Item> selectedItemTypeList = [];
   countItemType(String itemType) {
     for (int index = 0; index < items.length; index++) {
-      if (items[index].toMap()['type'] == selectedItemType ||
-          selectedItemType == "All") {
+      if (items[index].type == selectedItemType || selectedItemType == "All") {
         selectedItemTypeList.add(items[index]);
       }
     }
@@ -83,6 +82,7 @@ class _MenuScreenState extends State<MenuScreen> {
                     index,
                   ) {
                     return ItemCard(
+                      parentContext: context,
                       item: selectedItemTypeList[index],
                       height: widget.height,
                       width: widget.width,
