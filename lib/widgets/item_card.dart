@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:munchmate/models/item.dart';
 import 'package:munchmate/utils/colors.dart';
 import 'package:munchmate/utils/constants.dart';
+import 'package:munchmate/utils/utils.dart';
 import 'package:toast/toast.dart';
 
 class ItemCard extends StatefulWidget {
@@ -29,7 +30,7 @@ class _ItemCardState extends State<ItemCard> {
     return Column(
       children: [
         Container(
-          height: widget.height / 6.3,
+          height: widget.height / 6.5,
           width: widget.width / 2.5,
           margin: const EdgeInsets.fromLTRB(0, 15, 0, 0),
           padding: const EdgeInsets.all(0),
@@ -38,7 +39,7 @@ class _ItemCardState extends State<ItemCard> {
               topRight: Radius.circular(5),
               topLeft: Radius.circular(5),
             ),
-            color: whiteColor,
+            color: blackColor,
             shape: BoxShape.rectangle,
           ),
           child: Stack(
@@ -50,7 +51,7 @@ class _ItemCardState extends State<ItemCard> {
                 ),
                 child: Image.network(
                   widget.item.imageUrl,
-                  height: widget.height / 6.3,
+                  height: widget.height / 6.5,
                   width: widget.width / 2.5,
                   fit: BoxFit.cover,
                 ),
@@ -88,21 +89,13 @@ class _ItemCardState extends State<ItemCard> {
                               (user.favourites.contains(widget.item))
                                   ? {
                                       user.favourites.remove(widget.item),
-                                      Toast.show(
-                                        '${widget.item.name} removed from Favourites',
-                                        backgroundColor:
-                                            blackColor.withOpacity(0.8),
-                                        backgroundRadius: 15,
-                                      ),
+                                      showToast(
+                                          '${widget.item.name} removed from Favourites'),
                                     }
                                   : {
                                       user.favourites.add(widget.item),
-                                      Toast.show(
-                                        '${widget.item.name} added to Favourites',
-                                        backgroundColor:
-                                            blackColor.withOpacity(0.8),
-                                        backgroundRadius: 15,
-                                      ),
+                                      showToast(
+                                          '${widget.item.name} added to Favourites'),
                                     };
                             });
                           },
@@ -152,14 +145,7 @@ class _ItemCardState extends State<ItemCard> {
           margin: const EdgeInsets.fromLTRB(0, 0, 0, 0),
           padding: const EdgeInsets.all(5),
           decoration: BoxDecoration(
-            color: whiteColor,
-            // boxShadow: [
-            //   BoxShadow(
-            //     color: blackColor12,
-            //     blurRadius: 5,
-            //     spreadRadius: 1,
-            //   )
-            // ],
+            color: blackColor,
             borderRadius: const BorderRadius.only(
               bottomRight: Radius.circular(5),
               bottomLeft: Radius.circular(5),
@@ -171,7 +157,7 @@ class _ItemCardState extends State<ItemCard> {
               Text(
                 ' ₹ ${widget.item.price}',
                 style: TextStyle(
-                  color: blackColor,
+                  color: whiteColor,
                   fontWeight: FontWeight.bold,
                   fontSize: widget.width * 0.04,
                 ),
@@ -191,18 +177,19 @@ class _ItemCardState extends State<ItemCard> {
                             order.items.add(widget.item),
                             order.itemCounts.add(1),
                           };
-                    Toast.show(
-                      '${widget.item.name} added',
-                      backgroundColor: blackColor.withOpacity(0.8),
-                      backgroundRadius: 15,
-                    );
+                    showToast('${widget.item.name} added');
+                    // Toast.show(
+                    //   '${widget.item.name} added',
+                    //   backgroundColor: blackColor.withOpacity(0.8),
+                    //   backgroundRadius: 15,
+                    // );
                   },
                   child: Text(
                     'Add',
                     style: TextStyle(
                       fontWeight: FontWeight.w800,
                       fontSize: widget.width * 0.04,
-                      color: whiteColor,
+                      color: blackColor,
                     ),
                   ),
                 ),

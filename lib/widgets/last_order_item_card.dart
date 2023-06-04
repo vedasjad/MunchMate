@@ -55,7 +55,7 @@ class LastOrderItemCard extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      'Rs. ${item.price}',
+                      '₹ ${item.price}',
                       style: TextStyle(
                         fontSize: width * 0.035,
                         fontWeight: FontWeight.w600,

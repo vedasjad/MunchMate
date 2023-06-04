@@ -67,7 +67,7 @@ class _LastOrderCardState extends State<LastOrderCard> {
                       ],
                     ),
                     Text(
-                        "${weekDaysName[widget.order.dateTime.weekday - 1]}, ${widget.order.dateTime.day} ${monthsName[widget.order.dateTime.month - 1]} ${widget.order.dateTime.year}\n ${(widget.order.dateTime.hour > 12) ? widget.order.dateTime.hour - 12 : widget.order.dateTime.hour}:${widget.order.dateTime.minute} ${(widget.order.dateTime.hour > 12) ? "PM" : "AM"}"),
+                        "${weekDaysName[widget.order.dateTime.weekday - 1]}, ${widget.order.dateTime.day} ${monthsName[widget.order.dateTime.month - 1]} ${widget.order.dateTime.year}\n ${(widget.order.dateTime.hour > 12) ? (widget.order.dateTime.hour - 12 < 10) ? '0${widget.order.dateTime.hour - 12}' : widget.order.dateTime.hour - 12 : widget.order.dateTime.hour}:${(widget.order.dateTime.minute < 10) ? '0${widget.order.dateTime.minute}' : widget.order.dateTime.minute} ${(widget.order.dateTime.hour > 12) ? "PM" : "AM"}"),
                     SizedBox(
                       height: widget.height * 0.01,
                     ),
@@ -75,7 +75,7 @@ class _LastOrderCardState extends State<LastOrderCard> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          "Rs. ${widget.order.totalPrice}",
+                          "₹ ${widget.order.totalPrice}",
                           style: TextStyle(
                             fontWeight: FontWeight.w600,
                             fontSize: widget.width * 0.045,
@@ -87,17 +87,17 @@ class _LastOrderCardState extends State<LastOrderCard> {
                 ),
               ),
               Expanded(
-                child: Icon(
-                  Icons.qr_code,
-                  size: widget.width * 0.1,
-                ),
-              ),
-              Expanded(
                 child: CircleAvatar(
                   radius: widget.width * 0.08,
                   backgroundImage: NetworkImage(
                     widget.order.items[0].imageUrl,
                   ),
+                ),
+              ),
+              Expanded(
+                child: Icon(
+                  Icons.qr_code,
+                  size: widget.width * 0.15,
                 ),
               ),
             ],
@@ -109,6 +109,7 @@ class _LastOrderCardState extends State<LastOrderCard> {
                       height: widget.height * 0.02,
                     ),
                     ListView.builder(
+                      physics: const NeverScrollableScrollPhysics(),
                       scrollDirection: Axis.vertical,
                       shrinkWrap: true,
                       itemCount: widget.order.items.length,

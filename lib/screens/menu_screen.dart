@@ -39,68 +39,67 @@ class _MenuScreenState extends State<MenuScreen> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Padding(
+      child: SingleChildScrollView(
         padding: const EdgeInsets.symmetric(horizontal: 8.0),
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              Container(
-                height: widget.height * 0.1,
-                margin: const EdgeInsets.only(top: 5),
-                child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemExtent: widget.width / 5.3,
-                  shrinkWrap: true,
-                  itemCount: itemTypes.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    return InkWell(
-                      onTap: () {
-                        setState(() {
-                          selectedItemType = itemTypes[index];
-                          selectedItemTypeList = [];
-                        });
-                      },
-                      splashFactory: NoSplash.splashFactory,
-                      child: HeaderButton(
-                        width: widget.width,
-                        asset: headerIcons[index],
-                        title: itemTypes[index],
-                      ),
-                    );
-                  },
-                ),
-              ),
-              Container(
-                margin: const EdgeInsets.all(8),
-                width: MediaQuery.of(context).size.width,
-                child: GridView.builder(
-                  physics: const NeverScrollableScrollPhysics(),
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    crossAxisSpacing: widget.width * 0.03,
-                    mainAxisSpacing: 0.0,
-                    mainAxisExtent: widget.height / 4.3,
-                  ),
-                  itemCount: countItemType(selectedItemType),
-                  shrinkWrap: true,
-                  itemBuilder: (
-                    BuildContext ctx,
-                    index,
-                  ) {
-                    return ItemCard(
-                      parentContext: context,
-                      item: selectedItemTypeList[index],
-                      height: widget.height,
+        physics: const BouncingScrollPhysics(),
+        child: Column(
+          children: [
+            Container(
+              height: widget.height * 0.1,
+              margin: const EdgeInsets.only(top: 5),
+              child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemExtent: widget.width / 5.3,
+                shrinkWrap: true,
+                itemCount: itemTypes.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return InkWell(
+                    onTap: () {
+                      setState(() {
+                        selectedItemType = itemTypes[index];
+                        selectedItemTypeList = [];
+                      });
+                    },
+                    splashFactory: NoSplash.splashFactory,
+                    child: HeaderButton(
                       width: widget.width,
-                    );
-                  },
-                ),
+                      asset: headerIcons[index],
+                      title: itemTypes[index],
+                    ),
+                  );
+                },
               ),
-              SizedBox(
-                height: widget.height * 0.07,
-              )
-            ],
-          ),
+            ),
+            Container(
+              margin: const EdgeInsets.all(8),
+              width: MediaQuery.of(context).size.width,
+              child: GridView.builder(
+                physics: const NeverScrollableScrollPhysics(),
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  crossAxisSpacing: widget.width * 0.03,
+                  mainAxisSpacing: 0.0,
+                  mainAxisExtent: widget.height / 4.3,
+                ),
+                itemCount: countItemType(selectedItemType),
+                shrinkWrap: true,
+                itemBuilder: (
+                  BuildContext ctx,
+                  index,
+                ) {
+                  return ItemCard(
+                    parentContext: context,
+                    item: selectedItemTypeList[index],
+                    height: widget.height,
+                    width: widget.width,
+                  );
+                },
+              ),
+            ),
+            SizedBox(
+              height: widget.height * 0.07,
+            )
+          ],
         ),
       ),
     );

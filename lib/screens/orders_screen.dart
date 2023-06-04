@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:munchmate/utils/colors.dart';
 import 'package:munchmate/utils/constants.dart';
+import 'package:munchmate/utils/utils.dart';
 import 'package:munchmate/widgets/order_card.dart';
 import 'package:toast/toast.dart';
 
@@ -61,6 +62,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
                 SizedBox(
                   height: height * 0.46,
                   child: ListView.builder(
+                    physics: const BouncingScrollPhysics(),
                     scrollDirection: Axis.vertical,
                     shrinkWrap: true,
                     itemCount: order.items.length,
@@ -87,7 +89,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
                       child: ElevatedButton(
                         style: ButtonStyle(
                           backgroundColor:
-                              MaterialStatePropertyAll(secondaryColor),
+                              MaterialStatePropertyAll(primaryColor),
                         ),
                         onPressed: () {
                           if (order.items.isEmpty) {
@@ -98,11 +100,11 @@ class _OrdersScreenState extends State<OrdersScreen> {
                             );
                             return;
                           }
-                          order.dateTime = DateTime.now();
-                          order.id = (user.lastOrders.length + 1).toString();
-                          order.totalPrice = totalAmount;
-                          user.lastOrders.add(order);
                           setState(() {
+                            order.dateTime = DateTime.now();
+                            order.id = (user.lastOrders.length + 1).toString();
+                            order.totalPrice = totalAmount;
+                            user.lastOrders.add(order);
                             order = order.copyWith(
                               items: [],
                               itemCounts: [],
@@ -111,11 +113,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
                             );
                             totalAmount = 0;
                           });
-                          Toast.show(
-                            'Ordered!',
-                            backgroundColor: blackColor.withOpacity(0.8),
-                            backgroundRadius: 15,
-                          );
+                          showToast('Ordered!');
                         },
                         child: Text(
                           'Pay',
