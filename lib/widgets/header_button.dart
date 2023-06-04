@@ -6,12 +6,12 @@ class HeaderButton extends StatefulWidget {
   const HeaderButton({
     required this.width,
     required this.title,
-    required this.network,
+    required this.asset,
     Key? key,
   }) : super(key: key);
   final double width;
   final String title;
-  final String network;
+  final String asset;
 
   @override
   State<HeaderButton> createState() => _HeaderButtonState();
@@ -36,12 +36,11 @@ class _HeaderButtonState extends State<HeaderButton> {
               )
             ],
             shape: BoxShape.circle,
-            color: (selectedItemType == widget.title)
-                ? primaryColor
-                : backgroundColor,
+            color:
+                (selectedItemType == widget.title) ? primaryColor : whiteColor,
           ),
-          child: Image.network(
-            widget.network,
+          child: Image.asset(
+            widget.asset,
             width: widget.width * 0.075,
             fit: BoxFit.fitWidth,
           ),
@@ -49,7 +48,7 @@ class _HeaderButtonState extends State<HeaderButton> {
         Text(
           widget.title,
           style: TextStyle(
-            color: Colors.black,
+            color: blackColor,
             fontSize: widget.width * 0.034,
           ),
         ),

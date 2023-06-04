@@ -1,8 +1,49 @@
 import "package:munchmate/models/item.dart";
 import "package:munchmate/models/order.dart";
+import "package:munchmate/models/user.dart";
 
-Order order = Order(id: '', items: [], itemCounts: []);
+Order order = Order(
+  id: '',
+  items: [],
+  itemCounts: [],
+  dateTime: DateTime(2023),
+  totalPrice: 0,
+);
+
 int totalAmount = 0;
+bool darkMode = false;
+
+final List<String> monthsName = [
+  "Jan",
+  "Feb",
+  "Mar",
+  "Apr",
+  "May",
+  "Jun",
+  "Jul",
+  "Aug",
+  "Sep",
+  "Oct",
+  "Nov",
+  "Dec"
+];
+final List<String> weekDaysName = [
+  "Sunday",
+  "Monday",
+  "Tuesday",
+  "Wednesday",
+  "Thursday",
+  "Friday",
+  "Saturday"
+];
+
+User user = User(
+  id: '01',
+  name: 'Ved',
+  email: 'ved2112073@akgec.ac.in',
+  favourites: [],
+  lastOrders: [],
+);
 
 const itemTypes = [
   "All",
@@ -12,11 +53,11 @@ const itemTypes = [
   "Favourites",
 ];
 const headerIcons = [
-  "https://freesvg.org/img/fast-food-menu.png",
-  "https://freesvg.org/img/Gerald_G_Fast_Food_Drinks_(FF_Menu)_5.png",
-  "https://freesvg.org/img/1548610988.png",
-  "https://freesvg.org/img/publicdomainq-bento.png",
-  "https://img.icons8.com/tiny-color/64/like.png",
+  "assets/images/all.png",
+  "assets/images/drinks.png",
+  "assets/images/snacks.png",
+  "assets/images/meals.png",
+  "assets/images/favourites.png",
 ];
 
 var selectedItemType = itemTypes[0];
@@ -82,7 +123,7 @@ List<Item> items = [
     type: "Meals",
     price: 60,
     imageUrl:
-        "https://tse2.mm.bing.net/th?id=OIP.6ndl-3qP9AI1_1xHfKpm1AHaE8&pid=Api&P=0&h=180",
+        "https://tse4.mm.bing.net/th?id=OIP.JugMsWUH0t1fFR8c_sehtAHaF4&pid=Api&P=0&h=180",
     isAvailable: "True",
   ),
   Item(

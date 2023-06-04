@@ -22,9 +22,15 @@ class MenuScreen extends StatefulWidget {
 class _MenuScreenState extends State<MenuScreen> {
   List<Item> selectedItemTypeList = [];
   countItemType(String itemType) {
+    selectedItemTypeList = [];
     for (int index = 0; index < items.length; index++) {
-      if (items[index].type == selectedItemType || selectedItemType == "All") {
+      if (items[index].type == selectedItemType ||
+          selectedItemType == itemTypes[0]) {
         selectedItemTypeList.add(items[index]);
+      } else if (selectedItemType == itemTypes[4]) {
+        if (user.favourites.contains(items[index])) {
+          selectedItemTypeList.add(items[index]);
+        }
       }
     }
     return selectedItemTypeList.length;
@@ -57,7 +63,7 @@ class _MenuScreenState extends State<MenuScreen> {
                       splashFactory: NoSplash.splashFactory,
                       child: HeaderButton(
                         width: widget.width,
-                        network: headerIcons[index],
+                        asset: headerIcons[index],
                         title: itemTypes[index],
                       ),
                     );
@@ -90,6 +96,9 @@ class _MenuScreenState extends State<MenuScreen> {
                   },
                 ),
               ),
+              SizedBox(
+                height: widget.height * 0.07,
+              )
             ],
           ),
         ),

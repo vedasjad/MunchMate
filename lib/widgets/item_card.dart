@@ -4,7 +4,7 @@ import 'package:munchmate/utils/colors.dart';
 import 'package:munchmate/utils/constants.dart';
 import 'package:toast/toast.dart';
 
-class ItemCard extends StatelessWidget {
+class ItemCard extends StatefulWidget {
   const ItemCard({
     super.key,
     required this.parentContext,
@@ -18,22 +18,27 @@ class ItemCard extends StatelessWidget {
   final double width;
 
   @override
+  State<ItemCard> createState() => _ItemCardState();
+}
+
+class _ItemCardState extends State<ItemCard> {
+  @override
   Widget build(BuildContext context) {
     ToastContext toastContext = ToastContext();
     toastContext.init(context);
     return Column(
       children: [
         Container(
-          height: height / 6,
-          width: width / 2.5,
+          height: widget.height / 6.3,
+          width: widget.width / 2.5,
           margin: const EdgeInsets.fromLTRB(0, 15, 0, 0),
           padding: const EdgeInsets.all(0),
-          decoration: const BoxDecoration(
-            borderRadius: BorderRadius.only(
+          decoration: BoxDecoration(
+            borderRadius: const BorderRadius.only(
               topRight: Radius.circular(5),
               topLeft: Radius.circular(5),
             ),
-            color: Colors.white,
+            color: whiteColor,
             shape: BoxShape.rectangle,
           ),
           child: Stack(
@@ -44,7 +49,9 @@ class ItemCard extends StatelessWidget {
                   topLeft: Radius.circular(5),
                 ),
                 child: Image.network(
-                  item.imageUrl,
+                  widget.item.imageUrl,
+                  height: widget.height / 6.3,
+                  width: widget.width / 2.5,
                   fit: BoxFit.cover,
                 ),
               ),
@@ -60,11 +67,10 @@ class ItemCard extends StatelessWidget {
                       end: FractionalOffset.bottomCenter,
                       colors: [
                         Colors.grey.withOpacity(0.0),
-                        Colors.black,
+                        blackColor,
                       ],
                       stops: const [0.25, 1.0],
                     ),
-                    // backgroundBlendMode: BlendMode.dstOut,
                   ),
                 ),
               ),
@@ -76,10 +82,39 @@ class ItemCard extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        Icon(
-                          Icons.favorite_border_rounded,
-                          size: width * 0.05,
-                          color: Colors.white,
+                        InkWell(
+                          onTap: () {
+                            setState(() {
+                              (user.favourites.contains(widget.item))
+                                  ? {
+                                      user.favourites.remove(widget.item),
+                                      Toast.show(
+                                        '${widget.item.name} removed from Favourites',
+                                        backgroundColor:
+                                            blackColor.withOpacity(0.8),
+                                        backgroundRadius: 15,
+                                      ),
+                                    }
+                                  : {
+                                      user.favourites.add(widget.item),
+                                      Toast.show(
+                                        '${widget.item.name} added to Favourites',
+                                        backgroundColor:
+                                            blackColor.withOpacity(0.8),
+                                        backgroundRadius: 15,
+                                      ),
+                                    };
+                            });
+                          },
+                          child: Icon(
+                            (user.favourites.contains(widget.item))
+                                ? Icons.favorite_rounded
+                                : Icons.favorite_border_rounded,
+                            size: widget.width * 0.05,
+                            color: (user.favourites.contains(widget.item))
+                                ? Colors.red
+                                : whiteColor,
+                          ),
                         ),
                       ],
                     ),
@@ -93,11 +128,11 @@ class ItemCard extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                item.name,
+                                widget.item.name,
                                 style: TextStyle(
-                                  color: Colors.white,
+                                  color: whiteColor,
                                   fontWeight: FontWeight.w600,
-                                  fontSize: width * 0.037,
+                                  fontSize: widget.width * 0.037,
                                 ),
                               ),
                             ],
@@ -112,20 +147,20 @@ class ItemCard extends StatelessWidget {
           ),
         ),
         Container(
-          height: width / 10,
-          width: width / 2.5,
+          height: widget.width / 10,
+          width: widget.width / 2.5,
           margin: const EdgeInsets.fromLTRB(0, 0, 0, 0),
           padding: const EdgeInsets.all(5),
-          decoration: const BoxDecoration(
-            color: Colors.white,
+          decoration: BoxDecoration(
+            color: whiteColor,
             // boxShadow: [
             //   BoxShadow(
-            //     color: Colors.black12,
+            //     color: blackColor12,
             //     blurRadius: 5,
             //     spreadRadius: 1,
             //   )
             // ],
-            borderRadius: BorderRadius.only(
+            borderRadius: const BorderRadius.only(
               bottomRight: Radius.circular(5),
               bottomLeft: Radius.circular(5),
             ),
@@ -134,11 +169,11 @@ class ItemCard extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                ' ₹ ${item.price}',
+                ' ₹ ${widget.item.price}',
                 style: TextStyle(
-                  color: Colors.black,
+                  color: blackColor,
                   fontWeight: FontWeight.bold,
-                  fontSize: width * 0.04,
+                  fontSize: widget.width * 0.04,
                 ),
               ),
               Container(
@@ -150,21 +185,15 @@ class ItemCard extends StatelessWidget {
                     backgroundColor: MaterialStatePropertyAll(secondaryColor),
                   ),
                   onPressed: () {
-                    bool flag = false;
-                    for (int index = 0; index < order.items.length; index++) {
-                      if (order.items[index] == item) {
-                        order.itemCounts[index]++;
-                        flag = true;
-                        break;
-                      }
-                    }
-                    if (!flag) {
-                      order.items.add(item);
-                      order.itemCounts.add(1);
-                    }
+                    (order.items.contains(widget.item))
+                        ? order.itemCounts[order.items.indexOf(widget.item)]++
+                        : {
+                            order.items.add(widget.item),
+                            order.itemCounts.add(1),
+                          };
                     Toast.show(
-                      '${item.name} added',
-                      backgroundColor: Colors.black.withOpacity(0.8),
+                      '${widget.item.name} added',
+                      backgroundColor: blackColor.withOpacity(0.8),
                       backgroundRadius: 15,
                     );
                   },
@@ -172,8 +201,8 @@ class ItemCard extends StatelessWidget {
                     'Add',
                     style: TextStyle(
                       fontWeight: FontWeight.w800,
-                      fontSize: width * 0.04,
-                      color: Colors.white,
+                      fontSize: widget.width * 0.04,
+                      color: whiteColor,
                     ),
                   ),
                 ),

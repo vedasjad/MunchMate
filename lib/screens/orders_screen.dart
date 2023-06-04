@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:munchmate/utils/colors.dart';
 import 'package:munchmate/utils/constants.dart';
 import 'package:munchmate/widgets/order_card.dart';
+import 'package:toast/toast.dart';
 
 class OrdersScreen extends StatefulWidget {
   const OrdersScreen({Key? key}) : super(key: key);
@@ -11,12 +12,13 @@ class OrdersScreen extends StatefulWidget {
 }
 
 class _OrdersScreenState extends State<OrdersScreen> {
-  calculateTotal() {
+  calculateTotal(int newTotal) {
+    updateState(newTotal);
+  }
+
+  updateState(int newTotal) {
     setState(() {
-      totalAmount = 0;
-      for (int index = 0; index < order.items.length; index++) {
-        totalAmount += (order.items[index].price * order.itemCounts[index]);
-      }
+      totalAmount = newTotal;
     });
   }
 
@@ -87,7 +89,34 @@ class _OrdersScreenState extends State<OrdersScreen> {
                           backgroundColor:
                               MaterialStatePropertyAll(secondaryColor),
                         ),
-                        onPressed: () {},
+                        onPressed: () {
+                          if (order.items.isEmpty) {
+                            Toast.show(
+                              'Select items to order!',
+                              backgroundColor: blackColor.withOpacity(0.8),
+                              backgroundRadius: 15,
+                            );
+                            return;
+                          }
+                          order.dateTime = DateTime.now();
+                          order.id = (user.lastOrders.length + 1).toString();
+                          order.totalPrice = totalAmount;
+                          user.lastOrders.add(order);
+                          setState(() {
+                            order = order.copyWith(
+                              items: [],
+                              itemCounts: [],
+                              totalPrice: 0,
+                              dateTime: DateTime(2023),
+                            );
+                            totalAmount = 0;
+                          });
+                          Toast.show(
+                            'Ordered!',
+                            backgroundColor: blackColor.withOpacity(0.8),
+                            backgroundRadius: 15,
+                          );
+                        },
                         child: Text(
                           'Pay',
                           style: TextStyle(

@@ -7,7 +7,7 @@ class OrderCard extends StatefulWidget {
     required this.index,
     Key? key,
   }) : super(key: key);
-  final Function() recalculateTotal;
+  final Function(int) recalculateTotal;
   final int index;
 
   @override
@@ -61,7 +61,7 @@ class _OrderCardState extends State<OrderCard> {
                             if (order.itemCounts[widget.index] > 0) {
                               order.itemCounts[widget.index]--;
                               totalAmount -= order.items[widget.index].price;
-                              widget.recalculateTotal;
+                              widget.recalculateTotal(totalAmount);
                             }
                           });
                         },
@@ -89,7 +89,7 @@ class _OrderCardState extends State<OrderCard> {
                           setState(() {
                             order.itemCounts[widget.index]++;
                             totalAmount += order.items[widget.index].price;
-                            widget.recalculateTotal;
+                            widget.recalculateTotal(totalAmount);
                           });
                         },
                         splashRadius: 20,

@@ -1,10 +1,11 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
+import 'package:munchmate/screens/last_orders_screen.dart';
 import 'package:munchmate/screens/menu_screen.dart';
 import 'package:munchmate/screens/orders_screen.dart';
-import 'package:munchmate/screens/recent_orders_screen.dart';
 import 'package:munchmate/utils/colors.dart';
+import 'package:munchmate/utils/constants.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -44,7 +45,7 @@ class _HomeScreenState extends State<HomeScreen>
               ),
             ),
             backgroundColor: primaryColor,
-            shadowColor: Colors.black,
+            shadowColor: blackColor,
             elevation: 5.0,
             child: ListView(
               children: [
@@ -58,8 +59,8 @@ class _HomeScreenState extends State<HomeScreen>
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Lottie.network(
-                            "https://assets9.lottiefiles.com/temp/lf20_nXwOJj.json",
+                          Lottie.asset(
+                            "assets/jsons/fast-food.json",
                             height: height * 0.1,
                           ),
                           Expanded(
@@ -70,11 +71,11 @@ class _HomeScreenState extends State<HomeScreen>
                                 Padding(
                                   padding: const EdgeInsets.all(8.0),
                                   child: Text(
-                                    'Mohd Asjad Raza Ansari',
+                                    user.name,
                                     style: TextStyle(
                                       fontSize: width * 0.045,
                                       fontWeight: FontWeight.bold,
-                                      color: Colors.white,
+                                      color: whiteColor,
                                     ),
                                   ),
                                 ),
@@ -86,10 +87,10 @@ class _HomeScreenState extends State<HomeScreen>
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Text(
-                          'mohdasjad2112073@akgec.ac.in',
+                          user.email,
                           style: TextStyle(
                             fontSize: width * 0.035,
-                            color: Colors.white,
+                            color: whiteColor,
                           ),
                         ),
                       ),
@@ -100,15 +101,13 @@ class _HomeScreenState extends State<HomeScreen>
                   title: Text(
                     'Home',
                     style: TextStyle(
-                      color: Colors.white,
+                      color: whiteColor,
                       fontSize: width * 0.045,
                     ),
                   ),
                   leading: Image(
-                    image: Image.network(
-                            "https://img.icons8.com/fluency-systems-regular/48/home.png")
-                        .image,
-                    color: Colors.white,
+                    image: Image.asset("assets/images/home.png").image,
+                    color: whiteColor,
                     height: width * 0.08,
                   ),
                   onTap: () {
@@ -117,20 +116,21 @@ class _HomeScreenState extends State<HomeScreen>
                 ),
                 ListTile(
                   title: Text(
-                    'Theme',
+                    'Switch Theme',
                     style: TextStyle(
-                      color: Colors.white,
+                      color: whiteColor,
                       fontSize: width * 0.045,
                     ),
                   ),
                   leading: Image(
-                    image: Image.network(
-                            "https://img.icons8.com/external-linear-outline-icons-papa-vector/78/external-Light-Mode-interface-linear-outline-icons-papa-vector.png")
-                        .image,
-                    color: Colors.white,
+                    image: Image.asset("assets/images/theme.png").image,
+                    color: whiteColor,
                     height: width * 0.08,
                   ),
                   onTap: () {
+                    setState(() {
+                      darkMode = true;
+                    });
                     Navigator.pop(context);
                   },
                 ),
@@ -138,15 +138,14 @@ class _HomeScreenState extends State<HomeScreen>
                   title: Text(
                     'Report Problem',
                     style: TextStyle(
-                      color: Colors.white,
+                      color: whiteColor,
                       fontSize: width * 0.045,
                     ),
                   ),
                   leading: Image(
-                    image: Image.network(
-                            "https://img.icons8.com/puffy/32/experimental-error-puffy.png")
-                        .image,
-                    color: Colors.white,
+                    image:
+                        Image.asset("assets/images/report-problem.png").image,
+                    color: whiteColor,
                     height: width * 0.08,
                   ),
                   onTap: () {
@@ -157,15 +156,13 @@ class _HomeScreenState extends State<HomeScreen>
                   title: Text(
                     'Logout',
                     style: TextStyle(
-                      color: Colors.white,
+                      color: whiteColor,
                       fontSize: width * 0.045,
                     ),
                   ),
                   leading: Image(
-                    image: Image.network(
-                            "https://img.icons8.com/sf-regular/48/logout-rounded.png")
-                        .image,
-                    color: Colors.white,
+                    image: Image.asset("assets/images/logout.png").image,
+                    color: whiteColor,
                     height: width * 0.08,
                   ),
                   onTap: () {
@@ -197,7 +194,8 @@ class _HomeScreenState extends State<HomeScreen>
                   text: 'Menu',
                 ),
                 Tab(
-                  text: 'Recent Orders',
+                  icon: Icon(Icons.history),
+                  // text: 'Recent Orders',
                 )
               ]),
         ),
@@ -219,9 +217,9 @@ class _HomeScreenState extends State<HomeScreen>
             );
           },
           tooltip: "Your Cart",
-          child: const Icon(
+          child: Icon(
             Icons.fastfood_rounded,
-            color: Colors.white,
+            color: whiteColor,
           ),
         ),
         body: TabBarView(
@@ -232,7 +230,7 @@ class _HomeScreenState extends State<HomeScreen>
               height: height,
               context: context,
             ),
-            const RecentOrders(),
+            const LastOrders(),
           ],
         ));
   }
