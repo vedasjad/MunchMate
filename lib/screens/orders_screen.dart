@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 import 'package:munchmate/utils/colors.dart';
 import 'package:munchmate/utils/constants.dart';
 import 'package:munchmate/utils/utils.dart';
 import 'package:munchmate/widgets/order_card.dart';
-import 'package:toast/toast.dart';
 
 class OrdersScreen extends StatefulWidget {
-  const OrdersScreen({Key? key}) : super(key: key);
-
+  const OrdersScreen({
+    Key? key,
+  }) : super(key: key);
   @override
   State<OrdersScreen> createState() => _OrdersScreenState();
 }
@@ -55,36 +56,41 @@ class _OrdersScreenState extends State<OrdersScreen> {
             ),
           ),
           body: Padding(
-            padding: const EdgeInsets.only(left: 15.0, right: 15.0, bottom: 10),
+            padding: const EdgeInsets.only(left: 15.0, right: 15.0, bottom: 0),
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 SizedBox(
-                  height: height * 0.46,
-                  child: ListView.builder(
-                    physics: const BouncingScrollPhysics(),
-                    scrollDirection: Axis.vertical,
-                    shrinkWrap: true,
-                    itemCount: order.items.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      return OrderCard(
-                        index: index,
-                        recalculateTotal: calculateTotal,
-                      );
-                    },
+                  height: height * 0.44,
+                  child: (order.items.isEmpty)
+                      ? Lottie.asset(
+                          "assets/jsons/rain.json",
+                          width: width * 0.8,
+                        )
+                      : ListView.builder(
+                          physics: const BouncingScrollPhysics(),
+                          scrollDirection: Axis.vertical,
+                          shrinkWrap: true,
+                          itemCount: order.items.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            return OrderCard(
+                              index: index,
+                              recalculateTotal: calculateTotal,
+                            );
+                          },
+                        ),
+                ),
+                Text(
+                  "Total : ₹ $totalAmount",
+                  textAlign: TextAlign.start,
+                  style: TextStyle(
+                    fontWeight: FontWeight.w600,
+                    fontSize: width * 0.05,
                   ),
                 ),
                 Row(
                   children: [
-                    Expanded(
-                      child: Text(
-                        "Total : ₹ $totalAmount",
-                        style: TextStyle(
-                          fontWeight: FontWeight.w600,
-                          fontSize: width * 0.05,
-                        ),
-                      ),
-                    ),
                     Expanded(
                       child: ElevatedButton(
                         style: ButtonStyle(
@@ -93,11 +99,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
                         ),
                         onPressed: () {
                           if (order.items.isEmpty) {
-                            Toast.show(
-                              'Select items to order!',
-                              backgroundColor: blackColor.withOpacity(0.8),
-                              backgroundRadius: 15,
-                            );
+                            showToast('Select items to order!');
                             return;
                           }
                           setState(() {

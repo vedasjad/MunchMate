@@ -41,6 +41,7 @@ dependencies:
   flutter_side_menu: ^0.3.2
   fluttertoast: ^8.0.9
   toast: ^0.3.0
+  qr_flutter: ^4.1.0
 
 dev_dependencies:
   flutter_test:

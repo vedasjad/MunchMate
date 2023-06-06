@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:munchmate/models/order.dart';
+import 'package:munchmate/screens/qr_screen.dart';
 import 'package:munchmate/utils/colors.dart';
 import 'package:munchmate/utils/constants.dart';
 import 'package:munchmate/widgets/last_order_item_card.dart';
@@ -26,7 +27,7 @@ class _LastOrderCardState extends State<LastOrderCard> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.only(bottom: 10),
+      margin: const EdgeInsets.all(5),
       padding: const EdgeInsets.all(15),
       decoration: BoxDecoration(
         color: whiteColor,
@@ -95,9 +96,27 @@ class _LastOrderCardState extends State<LastOrderCard> {
                 ),
               ),
               Expanded(
-                child: Icon(
-                  Icons.qr_code,
-                  size: widget.width * 0.15,
+                child: InkWell(
+                  onTap: () {
+                    showDialog(
+                      context: context,
+                      builder: (context) => Dialog(
+                        shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(15),
+                          ),
+                        ),
+                        backgroundColor: backgroundColor,
+                        child: QRScreen(
+                          order: widget.order,
+                        ),
+                      ),
+                    );
+                  },
+                  child: Icon(
+                    Icons.qr_code,
+                    size: widget.width * 0.15,
+                  ),
                 ),
               ),
             ],

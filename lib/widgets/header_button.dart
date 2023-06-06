@@ -25,7 +25,7 @@ class _HeaderButtonState extends State<HeaderButton> {
         Container(
           padding: const EdgeInsets.all(10),
           margin: EdgeInsets.fromLTRB(
-              widget.width * 0.02, 10, widget.width * 0.02, 5),
+              widget.width * 0.02, 5, widget.width * 0.02, 5),
           alignment: AlignmentDirectional.center,
           decoration: BoxDecoration(
             boxShadow: const [

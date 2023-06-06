@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:munchmate/models/order.dart';
+import 'package:munchmate/utils/colors.dart';
 import 'package:munchmate/utils/constants.dart';
 import 'package:munchmate/widgets/last_order_card.dart';
 
@@ -12,7 +12,12 @@ class LastOrders extends StatefulWidget {
 
 class _LastOrdersState extends State<LastOrders> {
   List<bool> expandCard = [];
-  final Iterable<Order> revUserLastOrders = user.lastOrders.reversed;
+
+  Future<void> _refresh() async {
+    // await Future(() => const Duration(seconds: 5));
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     for (int i = 0; i < user.lastOrders.length; i++) {
@@ -23,38 +28,40 @@ class _LastOrdersState extends State<LastOrders> {
     return SafeArea(
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 15),
-        child: SingleChildScrollView(
-          physics: const BouncingScrollPhysics(),
-          child: Column(
-            children: [
-              const SizedBox(
-                height: 15,
-              ),
-              ListView.builder(
-                physics: const NeverScrollableScrollPhysics(),
-                scrollDirection: Axis.vertical,
-                shrinkWrap: true,
-                itemCount: user.lastOrders.length,
-                itemBuilder: (BuildContext context, int index) {
-                  return InkWell(
-                    onTap: () {
-                      setState(() {
-                        expandCard[index] = !expandCard[index];
-                      });
-                    },
-                    borderRadius: BorderRadius.circular(15),
-                    splashFactory: NoSplash.splashFactory,
-                    splashColor: Colors.transparent,
-                    child: LastOrderCard(
-                      width: width,
-                      height: height,
-                      expand: expandCard[index],
-                      order: revUserLastOrders.elementAt(index),
-                    ),
-                  );
-                },
-              ),
-            ],
+        child: RefreshIndicator(
+          color: primaryColor,
+          onRefresh: _refresh,
+          child: SingleChildScrollView(
+            padding: const EdgeInsets.only(top: 10),
+            physics: const BouncingScrollPhysics(),
+            child: Column(
+              children: [
+                ListView.builder(
+                  physics: const NeverScrollableScrollPhysics(),
+                  scrollDirection: Axis.vertical,
+                  shrinkWrap: true,
+                  itemCount: user.lastOrders.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return InkWell(
+                      onTap: () {
+                        setState(() {
+                          expandCard[index] = !expandCard[index];
+                        });
+                      },
+                      borderRadius: BorderRadius.circular(15),
+                      splashFactory: NoSplash.splashFactory,
+                      splashColor: Colors.transparent,
+                      child: LastOrderCard(
+                        width: width,
+                        height: height,
+                        expand: expandCard[index],
+                        order: user.lastOrders.reversed.elementAt(index),
+                      ),
+                    );
+                  },
+                ),
+              ],
+            ),
           ),
         ),
       ),

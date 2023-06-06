@@ -40,13 +40,12 @@ class _MenuScreenState extends State<MenuScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: SingleChildScrollView(
-        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+        padding: const EdgeInsets.fromLTRB(8, 8, 8, 0),
         physics: const BouncingScrollPhysics(),
         child: Column(
           children: [
-            Container(
-              height: widget.height * 0.1,
-              margin: const EdgeInsets.only(top: 5),
+            SizedBox(
+              height: widget.height * 0.09,
               child: ListView.builder(
                 scrollDirection: Axis.horizontal,
                 itemExtent: widget.width / 5.3,
@@ -97,7 +96,7 @@ class _MenuScreenState extends State<MenuScreen> {
               ),
             ),
             SizedBox(
-              height: widget.height * 0.07,
+              height: widget.height * 0.1,
             )
           ],
         ),
