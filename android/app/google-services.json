@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "922026563911",
+    "project_id": "munchmate-9ad84",
+    "storage_bucket": "munchmate-9ad84.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:922026563911:android:e25f3ae8fb644867ab9462",
+        "android_client_info": {
+          "package_name": "com.vedasjad.munchmate.munchmate"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "922026563911-dg53u13oq537lo3tb84e60823kb7mt50.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.vedasjad.munchmate.munchmate",
+            "certificate_hash": "95eea4deed560019433bc3fe65b6a92e523c300a"
+          }
+        },
+        {
+          "client_id": "922026563911-fg7nguhr99jgk30552qj3c382iol7q1j.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBzANKTHGN0rn0D9hJCF4vzB4GNLqf3Q_0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "922026563911-5o56k2gr8bh3ehc1ik67e70mdkjgppij.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "922026563911-f8n73t3qn66r00491bmpii60ua6ivtti.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.vedasjad.munchmate.munchmate"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

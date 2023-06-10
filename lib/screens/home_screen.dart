@@ -1,5 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:munchmate/screens/last_orders_screen.dart';
 import 'package:munchmate/screens/menu_screen.dart';
 import 'package:munchmate/screens/orders_screen.dart';
@@ -15,6 +17,11 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen>
     with SingleTickerProviderStateMixin {
+  Future signOut() async {
+    await GoogleSignIn().disconnect();
+    await FirebaseAuth.instance.signOut();
+  }
+
   late TabController _tabController = TabController(
     length: 2,
     vsync: this,
@@ -73,8 +80,8 @@ class _HomeScreenState extends State<HomeScreen>
                           padding: const EdgeInsets.all(5.0),
                           child: CircleAvatar(
                             radius: height * 0.05,
-                            backgroundImage: const AssetImage(
-                              "assets/images/all.png",
+                            backgroundImage: NetworkImage(
+                              user.photoURL,
                             ),
                           ),
                         ),
@@ -158,7 +165,8 @@ class _HomeScreenState extends State<HomeScreen>
                   ),
                 ),
                 leading: Image(
-                  image: Image.asset("assets/images/report-problem.png").image,
+                  image: Image.asset("assets/images/terms-and-conditions.png")
+                      .image,
                   color: whiteColor,
                   height: width * 0.08,
                 ),
@@ -175,7 +183,7 @@ class _HomeScreenState extends State<HomeScreen>
                   ),
                 ),
                 leading: Image(
-                  image: Image.asset("assets/images/report-problem.png").image,
+                  image: Image.asset("assets/images/privacy-policy.png").image,
                   color: whiteColor,
                   height: width * 0.08,
                 ),
@@ -209,7 +217,7 @@ class _HomeScreenState extends State<HomeScreen>
                   ),
                 ),
                 leading: Image(
-                  image: Image.asset("assets/images/report-problem.png").image,
+                  image: Image.asset("assets/images/contact-us.png").image,
                   color: whiteColor,
                   height: width * 0.08,
                 ),
@@ -231,6 +239,7 @@ class _HomeScreenState extends State<HomeScreen>
                   height: width * 0.08,
                 ),
                 onTap: () {
+                  signOut();
                   Navigator.pop(context);
                 },
               ),
@@ -292,7 +301,7 @@ class _HomeScreenState extends State<HomeScreen>
               ),
               bottom: TabBar(
                 controller: _tabController,
-                indicatorColor: backgroundColor,
+                indicatorColor: whiteColor,
                 labelStyle: TextStyle(
                   fontSize: width * 0.045,
                 ),

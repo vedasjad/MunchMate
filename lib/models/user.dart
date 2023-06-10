@@ -4,32 +4,36 @@ import 'package:collection/collection.dart';
 import 'package:munchmate/models/item.dart';
 import 'package:munchmate/models/order.dart';
 
-class User {
+class LocalUser {
   final String id;
   final String name;
   final String email;
+  final String photoURL;
   final List<Item> favourites;
   final List<Order> lastOrders;
 
-  User({
+  LocalUser({
     required this.id,
     required this.name,
     required this.email,
+    required this.photoURL,
     required this.favourites,
     required this.lastOrders,
   });
 
-  User copyWith({
+  LocalUser copyWith({
     String? id,
     String? name,
     String? email,
+    String? photoURL,
     List<Item>? favourites,
     List<Order>? lastOrders,
   }) {
-    return User(
+    return LocalUser(
       id: id ?? this.id,
       name: name ?? this.name,
       email: email ?? this.email,
+      photoURL: photoURL ?? this.photoURL,
       favourites: favourites ?? this.favourites,
       lastOrders: lastOrders ?? this.lastOrders,
     );
@@ -37,54 +41,61 @@ class User {
 
   Map<String, dynamic> toMap() {
     final result = <String, dynamic>{};
-  
+
     result.addAll({'id': id});
     result.addAll({'name': name});
     result.addAll({'email': email});
+    result.addAll({'photoURL': photoURL});
     result.addAll({'favourites': favourites.map((x) => x.toMap()).toList()});
     result.addAll({'lastOrders': lastOrders.map((x) => x.toMap()).toList()});
-  
+
     return result;
   }
 
-  factory User.fromMap(Map<String, dynamic> map) {
-    return User(
+  factory LocalUser.fromMap(Map<String, dynamic> map) {
+    return LocalUser(
       id: map['id'] ?? '',
       name: map['name'] ?? '',
       email: map['email'] ?? '',
-      favourites: List<Item>.from(map['favourites']?.map((x) => Item.fromMap(x))),
-      lastOrders: List<Order>.from(map['lastOrders']?.map((x) => Order.fromMap(x))),
+      photoURL: map['photoURL'] ?? '',
+      favourites:
+          List<Item>.from(map['favourites']?.map((x) => Item.fromMap(x))),
+      lastOrders:
+          List<Order>.from(map['lastOrders']?.map((x) => Order.fromMap(x))),
     );
   }
 
   String toJson() => json.encode(toMap());
 
-  factory User.fromJson(String source) => User.fromMap(json.decode(source));
+  factory LocalUser.fromJson(String source) =>
+      LocalUser.fromMap(json.decode(source));
 
   @override
   String toString() {
-    return 'User(id: $id, name: $name, email: $email, favourites: $favourites, lastOrders: $lastOrders)';
+    return 'LocalUser(id: $id, name: $name, email: $email, photoURL: $photoURL, favourites: $favourites, lastOrders: $lastOrders)';
   }
 
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
     final listEquals = const DeepCollectionEquality().equals;
-  
-    return other is User &&
-      other.id == id &&
-      other.name == name &&
-      other.email == email &&
-      listEquals(other.favourites, favourites) &&
-      listEquals(other.lastOrders, lastOrders);
+
+    return other is LocalUser &&
+        other.id == id &&
+        other.name == name &&
+        other.email == email &&
+        other.photoURL == photoURL &&
+        listEquals(other.favourites, favourites) &&
+        listEquals(other.lastOrders, lastOrders);
   }
 
   @override
   int get hashCode {
     return id.hashCode ^
-      name.hashCode ^
-      email.hashCode ^
-      favourites.hashCode ^
-      lastOrders.hashCode;
+        name.hashCode ^
+        email.hashCode ^
+        photoURL.hashCode ^
+        favourites.hashCode ^
+        lastOrders.hashCode;
   }
 }

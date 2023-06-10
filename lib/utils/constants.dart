@@ -37,13 +37,7 @@ final List<String> weekDaysName = [
   "Saturday"
 ];
 
-User user = User(
-  id: '01',
-  name: 'Ved',
-  email: 'ved2112073@akgec.ac.in',
-  favourites: [],
-  lastOrders: [],
-);
+late LocalUser user;
 
 const itemTypes = [
   "All",
