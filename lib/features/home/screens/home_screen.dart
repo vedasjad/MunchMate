@@ -2,11 +2,12 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:munchmate/screens/last_orders_screen.dart';
-import 'package:munchmate/screens/menu_screen.dart';
-import 'package:munchmate/screens/orders_screen.dart';
-import 'package:munchmate/utils/colors.dart';
-import 'package:munchmate/utils/constants.dart';
+import 'package:munchmate/features/home/widgets/orders_screen.dart';
+import 'package:munchmate/features/menu/screens/menu_screen.dart';
+import 'package:munchmate/features/ordersHistory/screens/last_orders_screen.dart';
+
+import '../../../common/colors.dart';
+import '../../../common/constants.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);

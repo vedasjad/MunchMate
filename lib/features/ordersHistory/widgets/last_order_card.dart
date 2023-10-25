@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:munchmate/common/colors.dart';
+import 'package:munchmate/common/constants.dart';
+import 'package:munchmate/features/ordersHistory/widgets/last_order_item_card.dart';
+import 'package:munchmate/features/ordersHistory/widgets/qr_screen.dart';
 import 'package:munchmate/models/order.dart';
-import 'package:munchmate/screens/qr_screen.dart';
-import 'package:munchmate/utils/colors.dart';
-import 'package:munchmate/utils/constants.dart';
-import 'package:munchmate/widgets/last_order_item_card.dart';
 
 class LastOrderCard extends StatefulWidget {
   const LastOrderCard({

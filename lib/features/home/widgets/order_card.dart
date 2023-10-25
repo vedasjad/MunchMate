@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:munchmate/utils/constants.dart';
+import 'package:munchmate/common/constants.dart';
 
 class OrderCard extends StatefulWidget {
   const OrderCard({

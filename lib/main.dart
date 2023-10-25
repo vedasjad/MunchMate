@@ -2,11 +2,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:munchmate/common/constants.dart';
+import 'package:munchmate/features/home/screens/home_screen.dart';
+import 'package:munchmate/features/login/screens/login_screen.dart';
 import 'package:munchmate/firebase_options.dart';
 import 'package:munchmate/models/user.dart';
-import 'package:munchmate/screens/home_screen.dart';
-import 'package:munchmate/screens/login_screen.dart';
-import 'package:munchmate/utils/constants.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();

@@ -1,4 +1,4 @@
-import 'package:munchmate/utils/colors.dart';
+import 'package:munchmate/common/colors.dart';
 import 'package:toast/toast.dart';
 
 showToast(String message) {

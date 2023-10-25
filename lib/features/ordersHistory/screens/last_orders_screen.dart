@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:munchmate/utils/colors.dart';
-import 'package:munchmate/utils/constants.dart';
-import 'package:munchmate/widgets/last_order_card.dart';
+import 'package:munchmate/common/colors.dart';
+import 'package:munchmate/common/constants.dart';
+import 'package:munchmate/features/ordersHistory/widgets/last_order_card.dart';
 
 class LastOrders extends StatefulWidget {
   const LastOrders({Key? key}) : super(key: key);

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:munchmate/utils/colors.dart';
-import 'package:munchmate/utils/constants.dart';
+import 'package:munchmate/common/colors.dart';
+import 'package:munchmate/common/constants.dart';
 
 class HeaderButton extends StatefulWidget {
   const HeaderButton({

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:munchmate/common/colors.dart';
+import 'package:munchmate/common/constants.dart';
+import 'package:munchmate/common/utils/utils.dart';
 import 'package:munchmate/models/item.dart';
-import 'package:munchmate/utils/colors.dart';
-import 'package:munchmate/utils/constants.dart';
-import 'package:munchmate/utils/utils.dart';
 import 'package:toast/toast.dart';
 
 class ItemCard extends StatefulWidget {

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
-import 'package:munchmate/utils/colors.dart';
-import 'package:munchmate/utils/constants.dart';
-import 'package:munchmate/utils/utils.dart';
-import 'package:munchmate/widgets/order_card.dart';
+import 'package:munchmate/common/colors.dart';
+import 'package:munchmate/common/constants.dart';
+import 'package:munchmate/common/utils/utils.dart';
+import 'package:munchmate/features/home/widgets/order_card.dart';
 
 class OrdersScreen extends StatefulWidget {
   const OrdersScreen({

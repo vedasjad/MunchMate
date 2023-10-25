@@ -2,8 +2,8 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
+import 'package:munchmate/common/colors.dart';
 import 'package:munchmate/firebase/auth.dart' as auth;
-import 'package:munchmate/utils/colors.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
