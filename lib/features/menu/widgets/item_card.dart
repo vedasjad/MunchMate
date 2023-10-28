@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:munchmate/common/colors.dart';
-import 'package:munchmate/common/constants.dart';
 import 'package:munchmate/common/utils/utils.dart';
 import 'package:munchmate/models/item.dart';
 import 'package:provider/provider.dart';
 import 'package:toast/toast.dart';
 
 import '../../../provider/localUserProvider.dart';
+import '../../../provider/orderProvider.dart';
 
 class ItemCard extends StatefulWidget {
   const ItemCard({
@@ -192,18 +192,9 @@ class _ItemCardState extends State<ItemCard> {
                     backgroundColor: MaterialStatePropertyAll(secondaryColor),
                   ),
                   onPressed: () {
-                    (order.items.contains(widget.item))
-                        ? order.itemCounts[order.items.indexOf(widget.item)]++
-                        : {
-                            order.items.add(widget.item),
-                            order.itemCounts.add(1),
-                          };
+                    Provider.of<OrderProvider>(context, listen: false)
+                        .addItemToOrder(widget.item);
                     showToast('${widget.item.name} added');
-                    // Toast.show(
-                    //   '${widget.item.name} added',
-                    //   backgroundColor: blackColor.withOpacity(0.8),
-                    //   backgroundRadius: 15,
-                    // );
                   },
                   child: Text(
                     'Add',

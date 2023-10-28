@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:munchmate/common/constants.dart';
+import 'package:provider/provider.dart';
+
+import '../../../provider/orderProvider.dart';
 
 class OrderCard extends StatefulWidget {
   const OrderCard({
-    required this.recalculateTotal,
     required this.index,
     Key? key,
   }) : super(key: key);
-  final Function(int) recalculateTotal;
   final int index;
 
   @override
@@ -18,7 +18,10 @@ class _OrderCardState extends State<OrderCard> {
   TextEditingController countController = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    countController.text = order.itemCounts[widget.index].toString();
+    countController.text = Provider.of<OrderProvider>(context)
+        .order
+        .itemCounts[widget.index]
+        .toString();
     var width = MediaQuery.of(context).size.width;
     var height = MediaQuery.of(context).size.height;
     return Row(
@@ -27,7 +30,10 @@ class _OrderCardState extends State<OrderCard> {
           child: ClipRRect(
             borderRadius: BorderRadius.circular(10),
             child: Image.network(
-              order.items[widget.index].imageUrl,
+              Provider.of<OrderProvider>(context)
+                  .order
+                  .items[widget.index]
+                  .imageUrl,
               fit: BoxFit.fill,
               height: width * 0.15,
             ),
@@ -44,7 +50,10 @@ class _OrderCardState extends State<OrderCard> {
                 Padding(
                   padding: const EdgeInsets.only(top: 8.0),
                   child: Text(
-                    order.items[widget.index].name,
+                    Provider.of<OrderProvider>(context)
+                        .order
+                        .items[widget.index]
+                        .name,
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontWeight: FontWeight.w600,
@@ -57,13 +66,12 @@ class _OrderCardState extends State<OrderCard> {
                     Expanded(
                       child: IconButton(
                         onPressed: () {
-                          setState(() {
-                            if (order.itemCounts[widget.index] > 0) {
-                              order.itemCounts[widget.index]--;
-                              totalAmount -= order.items[widget.index].price;
-                              widget.recalculateTotal(totalAmount);
-                            }
-                          });
+                          Provider.of<OrderProvider>(context, listen: false)
+                              .removeItemFromOrder(Provider.of<OrderProvider>(
+                                      context,
+                                      listen: false)
+                                  .order
+                                  .items[widget.index]);
                         },
                         splashRadius: 20,
                         icon: const Icon(
@@ -86,11 +94,12 @@ class _OrderCardState extends State<OrderCard> {
                     Expanded(
                       child: IconButton(
                         onPressed: () {
-                          setState(() {
-                            order.itemCounts[widget.index]++;
-                            totalAmount += order.items[widget.index].price;
-                            widget.recalculateTotal(totalAmount);
-                          });
+                          Provider.of<OrderProvider>(context, listen: false)
+                              .addItemToOrder(Provider.of<OrderProvider>(
+                                      context,
+                                      listen: false)
+                                  .order
+                                  .items[widget.index]);
                         },
                         splashRadius: 20,
                         icon: const Icon(
@@ -109,7 +118,7 @@ class _OrderCardState extends State<OrderCard> {
           child: Column(
             children: [
               Text(
-                "Rs. ${order.items[widget.index].price}",
+                "Rs. ${Provider.of<OrderProvider>(context).order.items[widget.index].price}",
               ),
             ],
           ),

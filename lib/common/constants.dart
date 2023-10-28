@@ -1,13 +1,4 @@
 import "package:munchmate/models/item.dart";
-import "package:munchmate/models/order.dart";
-
-Order order = Order(
-  id: '',
-  items: [],
-  itemCounts: [],
-  dateTime: DateTime(2023),
-  totalPrice: 0,
-);
 
 int totalAmount = 0;
 bool darkMode = false;

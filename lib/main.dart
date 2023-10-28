@@ -7,6 +7,7 @@ import 'package:munchmate/features/login/screens/login_screen.dart';
 import 'package:munchmate/firebase_options.dart';
 import 'package:munchmate/provider/homeProvider.dart';
 import 'package:munchmate/provider/localUserProvider.dart';
+import 'package:munchmate/provider/orderProvider.dart';
 import 'package:provider/provider.dart';
 
 import 'models/user.dart';
@@ -28,6 +29,7 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(create: (context) => LocalUserProvider()),
         ChangeNotifierProvider(create: (context) => HomeProvider()),
+        ChangeNotifierProvider(create: (context) => OrderProvider()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
