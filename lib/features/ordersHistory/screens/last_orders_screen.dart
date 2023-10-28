@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:munchmate/common/colors.dart';
 import 'package:munchmate/features/ordersHistory/widgets/last_order_card.dart';
+import 'package:munchmate/provider/last_order_card_provider.dart';
 import 'package:provider/provider.dart';
 
 import '../../../provider/localUserProvider.dart';
@@ -18,12 +19,18 @@ class _LastOrdersState extends State<LastOrders> {
   }
 
   @override
+  void didChangeDependencies() {
+    Provider.of<LastOrderCardProvider>(context, listen: false)
+        .fillExpandCardList(
+            Provider.of<LocalUserProvider>(context, listen: false)
+                .localUser
+                .lastOrders
+                .length);
+    super.didChangeDependencies();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    List<bool> expandCard = List<bool>.generate(
-        Provider.of<LocalUserProvider>(context).localUser.lastOrders.length,
-        (index) => false);
-    var width = MediaQuery.of(context).size.width;
-    var height = MediaQuery.of(context).size.height;
     return SafeArea(
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 15),
@@ -45,21 +52,14 @@ class _LastOrdersState extends State<LastOrders> {
                       .length,
                   itemBuilder: (BuildContext context, int index) {
                     return InkWell(
-                      onTap: () {
-                        setState(() {
-                          expandCard[index] = !expandCard[index];
-                        });
-                      },
+                      onTap: () => Provider.of<LastOrderCardProvider>(context,
+                              listen: false)
+                          .toggleCard(index),
                       borderRadius: BorderRadius.circular(15),
                       splashFactory: NoSplash.splashFactory,
                       splashColor: Colors.transparent,
                       child: LastOrderCard(
-                        width: width,
-                        height: height,
-                        expand: expandCard[index],
-                        order: Provider.of<LocalUserProvider>(context)
-                            .localUser
-                            .lastOrders[index],
+                        index: index,
                       ),
                     );
                   },

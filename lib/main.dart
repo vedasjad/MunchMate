@@ -6,6 +6,7 @@ import 'package:munchmate/features/home/screens/home_screen.dart';
 import 'package:munchmate/features/login/screens/login_screen.dart';
 import 'package:munchmate/firebase_options.dart';
 import 'package:munchmate/provider/homeProvider.dart';
+import 'package:munchmate/provider/last_order_card_provider.dart';
 import 'package:munchmate/provider/localUserProvider.dart';
 import 'package:munchmate/provider/orderProvider.dart';
 import 'package:provider/provider.dart';
@@ -30,6 +31,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => LocalUserProvider()),
         ChangeNotifierProvider(create: (context) => HomeProvider()),
         ChangeNotifierProvider(create: (context) => OrderProvider()),
+        ChangeNotifierProvider(create: (context) => LastOrderCardProvider()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
