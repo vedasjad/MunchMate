@@ -1,6 +1,5 @@
 import "package:munchmate/models/item.dart";
 
-int totalAmount = 0;
 bool darkMode = false;
 
 final List<String> monthsName = [
@@ -41,8 +40,6 @@ const headerIcons = [
   "assets/images/meals.png",
   "assets/images/favourites.png",
 ];
-
-// var selectedItemType = itemTypes[0];
 
 List<Item> items = [
   Item(

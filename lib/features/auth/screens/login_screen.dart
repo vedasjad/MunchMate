@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:munchmate/common/colors.dart';
-import 'package:munchmate/firebase/auth.dart' as auth;
+import 'package:munchmate/features/auth/services/auth_services.dart' as auth;
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -81,7 +81,8 @@ class _LoginScreenState extends State<LoginScreen> {
                       borderRadius: BorderRadius.circular(5),
                     ),
                   ),
-                  backgroundColor: const MaterialStatePropertyAll(backgroundColor),
+                  backgroundColor:
+                      const MaterialStatePropertyAll(backgroundColor),
                 ),
                 onPressed: () {
                   signInWithGoogle();

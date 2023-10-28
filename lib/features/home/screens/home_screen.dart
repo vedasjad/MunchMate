@@ -38,6 +38,11 @@ class _HomeScreenState extends State<HomeScreen>
     super.dispose();
   }
 
+  Future signOut() async {
+    await GoogleSignIn().disconnect();
+    await FirebaseAuth.instance.signOut();
+  }
+
   @override
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
@@ -233,9 +238,8 @@ class _HomeScreenState extends State<HomeScreen>
                   color: whiteColor,
                   height: width * 0.08,
                 ),
-                onTap: () async {
-                  await GoogleSignIn().disconnect();
-                  await FirebaseAuth.instance.signOut();
+                onTap: () {
+                  signOut();
                   Navigator.pop(context);
                 },
               ),

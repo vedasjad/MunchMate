@@ -3,14 +3,14 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:munchmate/features/home/screens/home_screen.dart';
-import 'package:munchmate/features/login/screens/login_screen.dart';
 import 'package:munchmate/firebase_options.dart';
-import 'package:munchmate/provider/homeProvider.dart';
 import 'package:munchmate/provider/last_order_card_provider.dart';
 import 'package:munchmate/provider/localUserProvider.dart';
+import 'package:munchmate/provider/menu_provider.dart';
 import 'package:munchmate/provider/orderProvider.dart';
 import 'package:provider/provider.dart';
 
+import 'features/auth/screens/login_screen.dart';
 import 'models/user.dart';
 
 Future<void> main() async {
@@ -29,7 +29,7 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => LocalUserProvider()),
-        ChangeNotifierProvider(create: (context) => HomeProvider()),
+        ChangeNotifierProvider(create: (context) => MenuProvider()),
         ChangeNotifierProvider(create: (context) => OrderProvider()),
         ChangeNotifierProvider(create: (context) => LastOrderCardProvider()),
       ],

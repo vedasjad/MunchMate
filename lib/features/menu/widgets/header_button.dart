@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:munchmate/common/colors.dart';
 import 'package:provider/provider.dart';
 
-import '../../../provider/homeProvider.dart';
+import '../../../provider/menu_provider.dart';
 
 class HeaderButton extends StatefulWidget {
   const HeaderButton({
@@ -38,7 +38,7 @@ class _HeaderButtonState extends State<HeaderButton> {
               )
             ],
             shape: BoxShape.circle,
-            color: (Provider.of<HomeProvider>(context).selectedItemType ==
+            color: (Provider.of<MenuProvider>(context).selectedItemType ==
                     widget.title)
                 ? primaryColor
                 : whiteColor,

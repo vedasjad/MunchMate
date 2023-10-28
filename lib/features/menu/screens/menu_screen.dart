@@ -3,11 +3,9 @@ import 'package:munchmate/common/colors.dart';
 import 'package:munchmate/common/constants.dart';
 import 'package:munchmate/features/menu/widgets/header_button.dart';
 import 'package:munchmate/features/menu/widgets/item_card.dart';
-import 'package:munchmate/models/item.dart';
 import 'package:provider/provider.dart';
 
-import '../../../provider/homeProvider.dart';
-import '../../../provider/localUserProvider.dart';
+import '../../../provider/menu_provider.dart';
 
 class MenuScreen extends StatefulWidget {
   const MenuScreen({
@@ -19,29 +17,14 @@ class MenuScreen extends StatefulWidget {
 }
 
 class _MenuScreenState extends State<MenuScreen> {
-  List<Item> selectedItemTypeList = [];
-  countItemType(String itemType) {
-    selectedItemTypeList = [];
-    for (int index = 0; index < items.length; index++) {
-      if (items[index].type ==
-              Provider.of<HomeProvider>(context).selectedItemType ||
-          Provider.of<HomeProvider>(context).selectedItemType == itemTypes[0]) {
-        selectedItemTypeList.add(items[index]);
-      } else if (Provider.of<HomeProvider>(context).selectedItemType ==
-          itemTypes[4]) {
-        if (Provider.of<LocalUserProvider>(context)
-            .localUser
-            .favourites
-            .contains(items[index])) {
-          selectedItemTypeList.add(items[index]);
-        }
-      }
-    }
-    return selectedItemTypeList.length;
-  }
-
   Future _refresh() async {
     setState(() {});
+  }
+
+  @override
+  void didChangeDependencies() {
+    Provider.of<MenuProvider>(context, listen: false).getAllItems();
+    super.didChangeDependencies();
   }
 
   @override
@@ -67,11 +50,8 @@ class _MenuScreenState extends State<MenuScreen> {
                   itemBuilder: (BuildContext context, int index) {
                     return InkWell(
                       onTap: () {
-                        setState(() {
-                          Provider.of<HomeProvider>(context, listen: false)
-                              .updateSelectedItemType(itemTypes[index]);
-                          selectedItemTypeList = [];
-                        });
+                        Provider.of<MenuProvider>(context, listen: false)
+                            .updateSelectedItemType(itemTypes[index], context);
                       },
                       splashFactory: NoSplash.splashFactory,
                       child: HeaderButton(
@@ -94,8 +74,10 @@ class _MenuScreenState extends State<MenuScreen> {
                     mainAxisSpacing: 0.0,
                     mainAxisExtent: screenHeight / 4.3,
                   ),
-                  itemCount: countItemType(
-                      Provider.of<HomeProvider>(context).selectedItemType),
+                  itemCount: Provider.of<MenuProvider>(context)
+                          .selectedItemTypeList
+                          .length -
+                      items.length,
                   shrinkWrap: true,
                   itemBuilder: (
                     BuildContext ctx,
@@ -103,7 +85,8 @@ class _MenuScreenState extends State<MenuScreen> {
                   ) {
                     return ItemCard(
                       parentContext: context,
-                      item: selectedItemTypeList[index],
+                      item: Provider.of<MenuProvider>(context)
+                          .selectedItemTypeList[index],
                       height: screenHeight,
                       width: screenWidth,
                     );
