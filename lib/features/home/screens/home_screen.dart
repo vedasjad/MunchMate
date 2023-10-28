@@ -319,13 +319,9 @@ class _HomeScreenState extends State<HomeScreen>
           removeTop: true,
           child: TabBarView(
             controller: _tabController,
-            children: [
-              MenuScreen(
-                width: width,
-                height: height,
-                context: context,
-              ),
-              const LastOrders(),
+            children: const [
+              MenuScreen(),
+              LastOrders(),
             ],
           ),
         ),

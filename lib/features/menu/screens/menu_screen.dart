@@ -11,14 +11,8 @@ import '../../../provider/localUserProvider.dart';
 
 class MenuScreen extends StatefulWidget {
   const MenuScreen({
-    required this.width,
-    required this.height,
-    required this.context,
     Key? key,
   }) : super(key: key);
-  final double width;
-  final double height;
-  final BuildContext context;
 
   @override
   State<MenuScreen> createState() => _MenuScreenState();
@@ -47,11 +41,13 @@ class _MenuScreenState extends State<MenuScreen> {
   }
 
   Future _refresh() async {
-    // setState(() {});
+    setState(() {});
   }
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
     return SafeArea(
       child: RefreshIndicator(
         color: primaryColor,
@@ -62,10 +58,10 @@ class _MenuScreenState extends State<MenuScreen> {
           child: Column(
             children: [
               SizedBox(
-                height: widget.height * 0.09,
+                height: screenHeight * 0.09,
                 child: ListView.builder(
                   scrollDirection: Axis.horizontal,
-                  itemExtent: widget.width / 5.3,
+                  itemExtent: screenWidth / 5.3,
                   shrinkWrap: true,
                   itemCount: itemTypes.length,
                   itemBuilder: (BuildContext context, int index) {
@@ -79,7 +75,7 @@ class _MenuScreenState extends State<MenuScreen> {
                       },
                       splashFactory: NoSplash.splashFactory,
                       child: HeaderButton(
-                        width: widget.width,
+                        width: screenWidth,
                         asset: headerIcons[index],
                         title: itemTypes[index],
                       ),
@@ -94,9 +90,9 @@ class _MenuScreenState extends State<MenuScreen> {
                   physics: const NeverScrollableScrollPhysics(),
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
-                    crossAxisSpacing: widget.width * 0.03,
+                    crossAxisSpacing: screenWidth * 0.03,
                     mainAxisSpacing: 0.0,
-                    mainAxisExtent: widget.height / 4.3,
+                    mainAxisExtent: screenHeight / 4.3,
                   ),
                   itemCount: countItemType(
                       Provider.of<HomeProvider>(context).selectedItemType),
@@ -108,14 +104,14 @@ class _MenuScreenState extends State<MenuScreen> {
                     return ItemCard(
                       parentContext: context,
                       item: selectedItemTypeList[index],
-                      height: widget.height,
-                      width: widget.width,
+                      height: screenHeight,
+                      width: screenWidth,
                     );
                   },
                 ),
               ),
               SizedBox(
-                height: widget.height * 0.1,
+                height: screenHeight * 0.1,
               )
             ],
           ),

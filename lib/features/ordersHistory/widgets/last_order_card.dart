@@ -91,7 +91,7 @@ class _LastOrderCardState extends State<LastOrderCard> {
                 child: CircleAvatar(
                   radius: widget.width * 0.08,
                   backgroundImage: NetworkImage(
-                    widget.order.items[0].imageUrl,
+                    widget.order.items.last.imageUrl,
                   ),
                 ),
               ),

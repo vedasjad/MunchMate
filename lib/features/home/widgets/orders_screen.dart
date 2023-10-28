@@ -99,8 +99,8 @@ class _OrdersScreenState extends State<OrdersScreen> {
                               .addOrder(Provider.of<OrderProvider>(context,
                                       listen: false)
                                   .order);
-                          Provider.of<OrderProvider>(context, listen: false)
-                              .clearOrder();
+                          // Provider.of<OrderProvider>(context, listen: false)
+                          //     .clearOrder();
                           Navigator.pop(context);
                           showToast('Ordered!');
                         },

@@ -13,19 +13,15 @@ class LastOrders extends StatefulWidget {
 }
 
 class _LastOrdersState extends State<LastOrders> {
-  List<bool> expandCard = [];
-
   Future<void> _refresh() async {
     setState(() {});
   }
 
   @override
   Widget build(BuildContext context) {
-    for (int i = 0;
-        i < Provider.of<LocalUserProvider>(context).localUser.lastOrders.length;
-        i++) {
-      expandCard.add(false);
-    }
+    List<bool> expandCard = List<bool>.generate(
+        Provider.of<LocalUserProvider>(context).localUser.lastOrders.length,
+        (index) => false);
     var width = MediaQuery.of(context).size.width;
     var height = MediaQuery.of(context).size.height;
     return SafeArea(
@@ -63,9 +59,7 @@ class _LastOrdersState extends State<LastOrders> {
                         expand: expandCard[index],
                         order: Provider.of<LocalUserProvider>(context)
                             .localUser
-                            .lastOrders
-                            .reversed
-                            .elementAt(index),
+                            .lastOrders[index],
                       ),
                     );
                   },
