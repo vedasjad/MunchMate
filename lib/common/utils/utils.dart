@@ -5,7 +5,7 @@ showToast(String message) {
   return Toast.show(
     message,
     duration: 1,
-    backgroundColor: blackColor.withOpacity(0.8),
+    backgroundColor: AppColors.black.withOpacity(0.8),
     backgroundRadius: 15,
   );
 }

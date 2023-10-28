@@ -3,7 +3,10 @@ import 'package:munchmate/common/colors.dart';
 import 'package:munchmate/common/constants.dart';
 import 'package:munchmate/common/utils/utils.dart';
 import 'package:munchmate/models/item.dart';
+import 'package:provider/provider.dart';
 import 'package:toast/toast.dart';
+
+import '../../../provider/localUserProvider.dart';
 
 class ItemCard extends StatefulWidget {
   const ItemCard({
@@ -34,8 +37,8 @@ class _ItemCardState extends State<ItemCard> {
           width: widget.width / 2.5,
           margin: const EdgeInsets.fromLTRB(0, 15, 0, 0),
           padding: const EdgeInsets.all(0),
-          decoration: BoxDecoration(
-            borderRadius: const BorderRadius.only(
+          decoration: const BoxDecoration(
+            borderRadius: BorderRadius.only(
               topRight: Radius.circular(5),
               topLeft: Radius.circular(5),
             ),
@@ -86,25 +89,43 @@ class _ItemCardState extends State<ItemCard> {
                         InkWell(
                           onTap: () {
                             setState(() {
-                              (user.favourites.contains(widget.item))
+                              (Provider.of<LocalUserProvider>(context,
+                                          listen: false)
+                                      .localUser
+                                      .favourites
+                                      .contains(widget.item))
                                   ? {
-                                      user.favourites.remove(widget.item),
+                                      Provider.of<LocalUserProvider>(context,
+                                              listen: false)
+                                          .localUser
+                                          .favourites
+                                          .remove(widget.item),
                                       showToast(
                                           '${widget.item.name} removed from Favourites'),
                                     }
                                   : {
-                                      user.favourites.add(widget.item),
+                                      Provider.of<LocalUserProvider>(context,
+                                              listen: false)
+                                          .localUser
+                                          .favourites
+                                          .add(widget.item),
                                       showToast(
                                           '${widget.item.name} added to Favourites'),
                                     };
                             });
                           },
                           child: Icon(
-                            (user.favourites.contains(widget.item))
+                            (Provider.of<LocalUserProvider>(context)
+                                    .localUser
+                                    .favourites
+                                    .contains(widget.item))
                                 ? Icons.favorite_rounded
                                 : Icons.favorite_border_rounded,
                             size: widget.width * 0.05,
-                            color: (user.favourites.contains(widget.item))
+                            color: (Provider.of<LocalUserProvider>(context)
+                                    .localUser
+                                    .favourites
+                                    .contains(widget.item))
                                 ? Colors.red
                                 : whiteColor,
                           ),
@@ -144,9 +165,9 @@ class _ItemCardState extends State<ItemCard> {
           width: widget.width / 2.5,
           margin: const EdgeInsets.fromLTRB(0, 0, 0, 0),
           padding: const EdgeInsets.all(5),
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             color: blackColor,
-            borderRadius: const BorderRadius.only(
+            borderRadius: BorderRadius.only(
               bottomRight: Radius.circular(5),
               bottomLeft: Radius.circular(5),
             ),
@@ -167,7 +188,7 @@ class _ItemCardState extends State<ItemCard> {
                   borderRadius: BorderRadius.circular(5),
                 ),
                 child: ElevatedButton(
-                  style: ButtonStyle(
+                  style: const ButtonStyle(
                     backgroundColor: MaterialStatePropertyAll(secondaryColor),
                   ),
                   onPressed: () {

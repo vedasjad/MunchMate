@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:munchmate/common/colors.dart';
-import 'package:munchmate/common/constants.dart';
 import 'package:munchmate/features/ordersHistory/widgets/last_order_card.dart';
+import 'package:provider/provider.dart';
+
+import '../../../provider/localUserProvider.dart';
 
 class LastOrders extends StatefulWidget {
   const LastOrders({Key? key}) : super(key: key);
@@ -19,7 +21,9 @@ class _LastOrdersState extends State<LastOrders> {
 
   @override
   Widget build(BuildContext context) {
-    for (int i = 0; i < user.lastOrders.length; i++) {
+    for (int i = 0;
+        i < Provider.of<LocalUserProvider>(context).localUser.lastOrders.length;
+        i++) {
       expandCard.add(false);
     }
     var width = MediaQuery.of(context).size.width;
@@ -39,7 +43,10 @@ class _LastOrdersState extends State<LastOrders> {
                   physics: const NeverScrollableScrollPhysics(),
                   scrollDirection: Axis.vertical,
                   shrinkWrap: true,
-                  itemCount: user.lastOrders.length,
+                  itemCount: Provider.of<LocalUserProvider>(context)
+                      .localUser
+                      .lastOrders
+                      .length,
                   itemBuilder: (BuildContext context, int index) {
                     return InkWell(
                       onTap: () {
@@ -54,7 +61,11 @@ class _LastOrdersState extends State<LastOrders> {
                         width: width,
                         height: height,
                         expand: expandCard[index],
-                        order: user.lastOrders.reversed.elementAt(index),
+                        order: Provider.of<LocalUserProvider>(context)
+                            .localUser
+                            .lastOrders
+                            .reversed
+                            .elementAt(index),
                       ),
                     );
                   },

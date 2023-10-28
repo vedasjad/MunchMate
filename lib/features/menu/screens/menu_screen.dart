@@ -4,6 +4,9 @@ import 'package:munchmate/common/constants.dart';
 import 'package:munchmate/features/menu/widgets/header_button.dart';
 import 'package:munchmate/features/menu/widgets/item_card.dart';
 import 'package:munchmate/models/item.dart';
+import 'package:provider/provider.dart';
+
+import '../../../provider/localUserProvider.dart';
 
 class MenuScreen extends StatefulWidget {
   const MenuScreen({
@@ -29,7 +32,10 @@ class _MenuScreenState extends State<MenuScreen> {
           selectedItemType == itemTypes[0]) {
         selectedItemTypeList.add(items[index]);
       } else if (selectedItemType == itemTypes[4]) {
-        if (user.favourites.contains(items[index])) {
+        if (Provider.of<LocalUserProvider>(context)
+            .localUser
+            .favourites
+            .contains(items[index])) {
           selectedItemTypeList.add(items[index]);
         }
       }
@@ -37,8 +43,8 @@ class _MenuScreenState extends State<MenuScreen> {
     return selectedItemTypeList.length;
   }
 
-  Future<void> _refresh() async {
-    setState(() {});
+  Future _refresh() async {
+    // setState(() {});
   }
 
   @override

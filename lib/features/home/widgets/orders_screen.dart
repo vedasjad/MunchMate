@@ -4,6 +4,9 @@ import 'package:munchmate/common/colors.dart';
 import 'package:munchmate/common/constants.dart';
 import 'package:munchmate/common/utils/utils.dart';
 import 'package:munchmate/features/home/widgets/order_card.dart';
+import 'package:provider/provider.dart';
+
+import '../../../provider/localUserProvider.dart';
 
 class OrdersScreen extends StatefulWidget {
   const OrdersScreen({
@@ -93,7 +96,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
                   children: [
                     Expanded(
                       child: ElevatedButton(
-                        style: ButtonStyle(
+                        style: const ButtonStyle(
                           backgroundColor:
                               MaterialStatePropertyAll(primaryColor),
                         ),
@@ -104,9 +107,19 @@ class _OrdersScreenState extends State<OrdersScreen> {
                           }
                           setState(() {
                             order.dateTime = DateTime.now();
-                            order.id = (user.lastOrders.length + 1).toString();
+                            order.id = (Provider.of<LocalUserProvider>(context,
+                                            listen: false)
+                                        .localUser
+                                        .lastOrders
+                                        .length +
+                                    1)
+                                .toString();
                             order.totalPrice = totalAmount;
-                            user.lastOrders.add(order);
+                            Provider.of<LocalUserProvider>(context,
+                                    listen: false)
+                                .localUser
+                                .lastOrders
+                                .add(order);
                             order = order.copyWith(
                               items: [],
                               itemCounts: [],
@@ -115,6 +128,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
                             );
                             totalAmount = 0;
                           });
+                          Navigator.pop(context);
                           showToast('Ordered!');
                         },
                         child: Text(

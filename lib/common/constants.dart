@@ -1,6 +1,5 @@
 import "package:munchmate/models/item.dart";
 import "package:munchmate/models/order.dart";
-import "package:munchmate/models/user.dart";
 
 Order order = Order(
   id: '',
@@ -36,8 +35,6 @@ final List<String> weekDaysName = [
   "Friday",
   "Saturday"
 ];
-
-late LocalUser user;
 
 const itemTypes = [
   "All",

@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:munchmate/common/colors.dart';
@@ -17,25 +15,25 @@ class _LoginScreenState extends State<LoginScreen> {
     await auth.signInWithGoogle();
   }
 
-  bool activeConnection = false;
-  Future checkUserConnection() async {
-    try {
-      final result = await InternetAddress.lookup('google.com');
-      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
-        setState(() {
-          activeConnection = true;
-        });
-      }
-    } on SocketException catch (_) {
-      setState(() {
-        activeConnection = false;
-      });
-    }
-  }
+  // bool activeConnection = false;
+  // Future checkUserConnection() async {
+  //   try {
+  //     final result = await InternetAddress.lookup('google.com');
+  //     if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+  //       setState(() {
+  //         activeConnection = true;
+  //       });
+  //     }
+  //   } on SocketException catch (_) {
+  //     setState(() {
+  //       activeConnection = false;
+  //     });
+  //   }
+  // }
 
   @override
   void initState() {
-    checkUserConnection();
+    // checkUserConnection();
     super.initState();
   }
 
@@ -83,7 +81,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       borderRadius: BorderRadius.circular(5),
                     ),
                   ),
-                  backgroundColor: MaterialStatePropertyAll(backgroundColor),
+                  backgroundColor: const MaterialStatePropertyAll(backgroundColor),
                 ),
                 onPressed: () {
                   signInWithGoogle();
@@ -97,8 +95,8 @@ class _LoginScreenState extends State<LoginScreen> {
                           color: primaryColor,
                           borderRadius: BorderRadius.circular(5),
                         ),
-                        child: Image(
-                          image: const AssetImage(
+                        child: const Image(
+                          image: AssetImage(
                             "assets/images/google.png",
                           ),
                           color: backgroundColor,

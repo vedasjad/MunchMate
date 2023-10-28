@@ -5,9 +5,11 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:munchmate/features/home/widgets/orders_screen.dart';
 import 'package:munchmate/features/menu/screens/menu_screen.dart';
 import 'package:munchmate/features/ordersHistory/screens/last_orders_screen.dart';
+import 'package:provider/provider.dart';
 
 import '../../../common/colors.dart';
 import '../../../common/constants.dart';
+import '../../../provider/localUserProvider.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -18,16 +20,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen>
     with SingleTickerProviderStateMixin {
-  Future signOut() async {
-    await GoogleSignIn().disconnect();
-    await FirebaseAuth.instance.signOut();
-  }
-
-  late TabController _tabController = TabController(
-    length: 2,
-    vsync: this,
-    initialIndex: 0,
-  );
+  late TabController _tabController;
   @override
   void initState() {
     super.initState();
@@ -47,9 +40,6 @@ class _HomeScreenState extends State<HomeScreen>
 
   @override
   Widget build(BuildContext context) {
-    if (_tabController.index == 1) {
-      setState(() {});
-    }
     var width = MediaQuery.of(context).size.width;
     var height = MediaQuery.of(context).size.height;
     return Scaffold(
@@ -82,7 +72,9 @@ class _HomeScreenState extends State<HomeScreen>
                           child: CircleAvatar(
                             radius: height * 0.05,
                             backgroundImage: NetworkImage(
-                              user.photoURL,
+                              Provider.of<LocalUserProvider>(context)
+                                  .localUser
+                                  .photoURL,
                             ),
                           ),
                         ),
@@ -94,7 +86,9 @@ class _HomeScreenState extends State<HomeScreen>
                               Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Text(
-                                  user.name,
+                                  Provider.of<LocalUserProvider>(context)
+                                      .localUser
+                                      .name,
                                   style: TextStyle(
                                     fontSize: width * 0.045,
                                     fontWeight: FontWeight.bold,
@@ -110,7 +104,7 @@ class _HomeScreenState extends State<HomeScreen>
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Text(
-                        user.email,
+                        Provider.of<LocalUserProvider>(context).localUser.email,
                         style: TextStyle(
                           fontSize: width * 0.035,
                           color: whiteColor,
@@ -239,8 +233,9 @@ class _HomeScreenState extends State<HomeScreen>
                   color: whiteColor,
                   height: width * 0.08,
                 ),
-                onTap: () {
-                  signOut();
+                onTap: () async {
+                  await GoogleSignIn().disconnect();
+                  await FirebaseAuth.instance.signOut();
                   Navigator.pop(context);
                 },
               ),
@@ -258,19 +253,19 @@ class _HomeScreenState extends State<HomeScreen>
         onPressed: () {
           showDialog(
             context: context,
-            builder: (context) => Dialog(
-              shape: const RoundedRectangleBorder(
+            builder: (context) => const Dialog(
+              shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(
                   Radius.circular(15),
                 ),
               ),
               backgroundColor: backgroundColor,
-              child: const OrdersScreen(),
+              child: OrdersScreen(),
             ),
           );
         },
         label: const Text("Your Order"),
-        icon: Icon(
+        icon: const Icon(
           Icons.fastfood_rounded,
           color: whiteColor,
         ),
