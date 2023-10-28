@@ -6,6 +6,7 @@ import 'package:munchmate/features/menu/widgets/item_card.dart';
 import 'package:munchmate/models/item.dart';
 import 'package:provider/provider.dart';
 
+import '../../../provider/homeProvider.dart';
 import '../../../provider/localUserProvider.dart';
 
 class MenuScreen extends StatefulWidget {
@@ -28,10 +29,12 @@ class _MenuScreenState extends State<MenuScreen> {
   countItemType(String itemType) {
     selectedItemTypeList = [];
     for (int index = 0; index < items.length; index++) {
-      if (items[index].type == selectedItemType ||
-          selectedItemType == itemTypes[0]) {
+      if (items[index].type ==
+              Provider.of<HomeProvider>(context).selectedItemType ||
+          Provider.of<HomeProvider>(context).selectedItemType == itemTypes[0]) {
         selectedItemTypeList.add(items[index]);
-      } else if (selectedItemType == itemTypes[4]) {
+      } else if (Provider.of<HomeProvider>(context).selectedItemType ==
+          itemTypes[4]) {
         if (Provider.of<LocalUserProvider>(context)
             .localUser
             .favourites
@@ -69,7 +72,8 @@ class _MenuScreenState extends State<MenuScreen> {
                     return InkWell(
                       onTap: () {
                         setState(() {
-                          selectedItemType = itemTypes[index];
+                          Provider.of<HomeProvider>(context, listen: false)
+                              .updateSelectedItemType(itemTypes[index]);
                           selectedItemTypeList = [];
                         });
                       },
@@ -94,7 +98,8 @@ class _MenuScreenState extends State<MenuScreen> {
                     mainAxisSpacing: 0.0,
                     mainAxisExtent: widget.height / 4.3,
                   ),
-                  itemCount: countItemType(selectedItemType),
+                  itemCount: countItemType(
+                      Provider.of<HomeProvider>(context).selectedItemType),
                   shrinkWrap: true,
                   itemBuilder: (
                     BuildContext ctx,

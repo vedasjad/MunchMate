@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:munchmate/features/home/screens/home_screen.dart';
 import 'package:munchmate/features/login/screens/login_screen.dart';
 import 'package:munchmate/firebase_options.dart';
+import 'package:munchmate/provider/homeProvider.dart';
 import 'package:munchmate/provider/localUserProvider.dart';
 import 'package:provider/provider.dart';
 
@@ -26,6 +27,7 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => LocalUserProvider()),
+        ChangeNotifierProvider(create: (context) => HomeProvider()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

@@ -51,7 +51,7 @@ const headerIcons = [
   "assets/images/favourites.png",
 ];
 
-var selectedItemType = itemTypes[0];
+// var selectedItemType = itemTypes[0];
 
 List<Item> items = [
   Item(
