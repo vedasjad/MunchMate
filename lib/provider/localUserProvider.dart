@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../models/user.dart';
+import '../models/local_user.dart';
 import 'orderProvider.dart';
 
 class LocalUserProvider extends ChangeNotifier {
@@ -11,7 +11,6 @@ class LocalUserProvider extends ChangeNotifier {
   }
 
   void addOrder(BuildContext context) {
-    Provider.of<OrderProvider>(context, listen: false).updateOrderID(context);
     _localUser.lastOrders
         .add(Provider.of<OrderProvider>(context, listen: false).order);
     //TODO : Clear Order After Pay

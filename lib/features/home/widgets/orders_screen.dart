@@ -93,8 +93,13 @@ class _OrdersScreenState extends State<OrdersScreen> {
                             showToast('Select items to order!');
                             return;
                           }
-                          Provider.of<LocalUserProvider>(context, listen: false)
-                              .addOrder(context);
+                          Provider.of<OrderProvider>(context, listen: false)
+                              .placeOrder(
+                                  Provider.of<LocalUserProvider>(context,
+                                          listen: false)
+                                      .localUser
+                                      .id,
+                                  context);
                           Navigator.pop(context);
                           showToast('Ordered!');
                         },

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:munchmate/common/colors.dart';
-import 'package:munchmate/common/constants.dart';
 import 'package:munchmate/features/ordersHistory/widgets/last_order_item_card.dart';
 import 'package:munchmate/features/ordersHistory/widgets/qr_screen.dart';
 import 'package:munchmate/models/order.dart';
@@ -76,7 +75,8 @@ class _LastOrderCardState extends State<LastOrderCard> {
                       ],
                     ),
                     Text(
-                        "${weekDaysName[order.dateTime.weekday - 1]}, ${order.dateTime.day} ${monthsName[order.dateTime.month - 1]} ${order.dateTime.year}\n ${(order.dateTime.hour > 12) ? (order.dateTime.hour - 12 < 10) ? '0${order.dateTime.hour - 12}' : order.dateTime.hour - 12 : order.dateTime.hour}:${(order.dateTime.minute < 10) ? '0${order.dateTime.minute}' : order.dateTime.minute} ${(order.dateTime.hour > 12) ? "PM" : "AM"}"),
+                      "",
+                    ), // "${weekDaysName[DateTime.parse(order.dateTime.toString()).weekday - 1]}, ${order.dateTime.day} ${monthsName[order.dateTime.month - 1]} ${order.dateTime.year}\n ${(order.dateTime.hour > 12) ? (order.dateTime.hour - 12 < 10) ? '0${order.dateTime.hour - 12}' : order.dateTime.hour - 12 : order.dateTime.hour}:${(order.dateTime.minute < 10) ? '0${order.dateTime.minute}' : order.dateTime.minute} ${(order.dateTime.hour > 12) ? "PM" : "AM"}"),
                     SizedBox(
                       height: screenHeight * 0.01,
                     ),

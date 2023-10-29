@@ -11,7 +11,7 @@ import 'package:munchmate/provider/orderProvider.dart';
 import 'package:provider/provider.dart';
 
 import 'features/auth/screens/login_screen.dart';
-import 'models/user.dart';
+import 'models/local_user.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();

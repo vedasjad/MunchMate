@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:munchmate/features/home/services/home_services.dart';
 import 'package:provider/provider.dart';
 
 import '../models/item.dart';
@@ -11,8 +12,12 @@ class OrderProvider extends ChangeNotifier {
     items: [],
     itemCounts: [],
     totalPrice: 0,
-    dateTime: DateTime(2023),
+    isDelivered: false,
+    dateTime: DateTime(2023).toUtc().millisecondsSinceEpoch,
+    orderedBy: "",
   );
+
+  HomeServices homeServices = HomeServices();
 
   void addItemToOrder(Item item) {
     if (!_order.items.contains(item)) {
@@ -36,23 +41,19 @@ class OrderProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void clearOrder() {
-    _order.itemCounts.clear();
-    _order.items.clear();
-    _order.id = "";
-    _order.dateTime = DateTime(2023);
-    _order.totalPrice = 0;
-    notifyListeners();
-  }
-
-  void updateOrderID(BuildContext context) {
-    _order.dateTime = DateTime.now();
-    _order.id = (Provider.of<LocalUserProvider>(context, listen: false)
-                .localUser
-                .lastOrders
-                .length +
-            1)
-        .toString();
+  void placeOrder(String localUserID, BuildContext context) async {
+    _order.orderedBy =
+        Provider.of<LocalUserProvider>(context, listen: false).localUser.id;
+    _order.dateTime = DateTime.now().toUtc().millisecondsSinceEpoch;
+    _order.id =
+        Provider.of<LocalUserProvider>(context, listen: false).localUser.id +
+            (Provider.of<LocalUserProvider>(context, listen: false)
+                        .localUser
+                        .lastOrders
+                        .length +
+                    1)
+                .toString();
+    await homeServices.placeOrder(localUserID, _order);
     notifyListeners();
   }
 
