@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:munchmate/features/home/services/home_services.dart';
 import 'package:munchmate/features/home/widgets/orders_screen.dart';
 import 'package:munchmate/features/menu/screens/menu_screen.dart';
 import 'package:munchmate/features/ordersHistory/screens/last_orders_screen.dart';
@@ -21,8 +22,11 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
+  HomeServices homeServices = HomeServices();
   @override
   void initState() {
+    homeServices.updateUserData(
+        Provider.of<LocalUserProvider>(context, listen: false).localUser);
     super.initState();
     _tabController = TabController(
       length: 2,
