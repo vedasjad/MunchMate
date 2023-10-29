@@ -14,8 +14,11 @@ class LastOrders extends StatefulWidget {
 }
 
 class _LastOrdersState extends State<LastOrders> {
-  Future<void> _refresh() async {
-    setState(() {});
+  @override
+  void initState() {
+    Provider.of<LocalUserProvider>(context, listen: false)
+        .getLastOrders(context);
+    super.initState();
   }
 
   @override
@@ -36,10 +39,11 @@ class _LastOrdersState extends State<LastOrders> {
         padding: const EdgeInsets.symmetric(horizontal: 15),
         child: RefreshIndicator(
           color: primaryColor,
-          onRefresh: _refresh,
+          onRefresh: () async {},
           child: SingleChildScrollView(
             padding: const EdgeInsets.only(top: 10),
-            physics: const BouncingScrollPhysics(),
+            physics: const BouncingScrollPhysics(
+                parent: NeverScrollableScrollPhysics()),
             child: Column(
               children: [
                 ListView.builder(

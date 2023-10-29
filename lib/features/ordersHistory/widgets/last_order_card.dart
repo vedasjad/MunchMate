@@ -6,6 +6,7 @@ import 'package:munchmate/models/order.dart';
 import 'package:munchmate/provider/last_order_card_provider.dart';
 import 'package:provider/provider.dart';
 
+import '../../../common/constants.dart';
 import '../../../provider/localUserProvider.dart';
 
 class LastOrderCard extends StatefulWidget {
@@ -23,14 +24,17 @@ class _LastOrderCardState extends State<LastOrderCard> {
   late Order order;
   @override
   void didChangeDependencies() {
-    order = Provider.of<LocalUserProvider>(context)
+    order = List.from(Provider.of<LocalUserProvider>(context)
         .localUser
-        .lastOrders[widget.index];
+        .lastOrders
+        .reversed)[widget.index];
     super.didChangeDependencies();
   }
 
   @override
   Widget build(BuildContext context) {
+    DateTime orderDateTime =
+        DateTime.fromMillisecondsSinceEpoch(order.dateTime);
     final screenHeight = MediaQuery.of(context).size.height;
     final screenWidth = MediaQuery.of(context).size.width;
     return Container(
@@ -60,7 +64,7 @@ class _LastOrderCardState extends State<LastOrderCard> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          "Order #${order.id}",
+                          "Order #${order.id.replaceAll(Provider.of<LocalUserProvider>(context).localUser.id, "")}",
                           style: TextStyle(
                             fontWeight: FontWeight.w900,
                             fontSize: screenWidth * 0.05,
@@ -75,8 +79,7 @@ class _LastOrderCardState extends State<LastOrderCard> {
                       ],
                     ),
                     Text(
-                      "",
-                    ), // "${weekDaysName[DateTime.parse(order.dateTime.toString()).weekday - 1]}, ${order.dateTime.day} ${monthsName[order.dateTime.month - 1]} ${order.dateTime.year}\n ${(order.dateTime.hour > 12) ? (order.dateTime.hour - 12 < 10) ? '0${order.dateTime.hour - 12}' : order.dateTime.hour - 12 : order.dateTime.hour}:${(order.dateTime.minute < 10) ? '0${order.dateTime.minute}' : order.dateTime.minute} ${(order.dateTime.hour > 12) ? "PM" : "AM"}"),
+                        "${weekDaysName[orderDateTime.weekday - 1]}, ${orderDateTime.day} ${monthsName[orderDateTime.month - 1]} ${orderDateTime.year}\n ${(orderDateTime.hour > 12) ? (orderDateTime.hour - 12 < 10) ? '0${orderDateTime.hour - 12}' : orderDateTime.hour - 12 : orderDateTime.hour}:${(orderDateTime.minute < 10) ? '0${orderDateTime.minute}' : orderDateTime.minute} ${(orderDateTime.hour > 12) ? "PM" : "AM"}"),
                     SizedBox(
                       height: screenHeight * 0.01,
                     ),

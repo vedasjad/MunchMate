@@ -54,6 +54,11 @@ class OrderProvider extends ChangeNotifier {
                     1)
                 .toString();
     await homeServices.placeOrder(localUserID, _order);
+    _order.id = "";
+    _order.items.clear();
+    _order.totalPrice = 0;
+    _order.itemCounts.clear();
+    _order.dateTime = DateTime(2023).toUtc().millisecondsSinceEpoch;
     notifyListeners();
   }
 

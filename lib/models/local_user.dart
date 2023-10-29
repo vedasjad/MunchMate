@@ -10,7 +10,7 @@ class LocalUser {
   final String email;
   final String photoURL;
   final List<Item> favourites;
-  final List<Order> lastOrders;
+  List<Order> lastOrders;
 
   LocalUser({
     required this.id,

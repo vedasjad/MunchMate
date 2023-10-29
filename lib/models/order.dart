@@ -22,10 +22,10 @@ class Order {
   });
 
   Order copyWith({
-     String? id,
+    String? id,
     List<Item>? items,
     List<int>? itemCounts,
-     int? totalPrice,
+    int? totalPrice,
     bool? isDelivered,
     int? dateTime,
     String? orderedBy,
@@ -43,7 +43,7 @@ class Order {
 
   Map<String, dynamic> toMap() {
     final result = <String, dynamic>{};
-  
+
     result.addAll({'id': id});
     result.addAll({'items': items.map((x) => x.toMap()).toList()});
     result.addAll({'itemCounts': itemCounts});
@@ -51,7 +51,7 @@ class Order {
     result.addAll({'isDelivered': isDelivered});
     result.addAll({'dateTime': dateTime});
     result.addAll({'orderedBy': orderedBy});
-  
+
     return result;
   }
 
@@ -60,9 +60,9 @@ class Order {
       id: map['id'],
       items: List<Item>.from(map['items']?.map((x) => Item.fromMap(x))),
       itemCounts: List<int>.from(map['itemCounts']),
-      totalPrice: int.parse(map['totalPrice']),
+      totalPrice: map['totalPrice'],
       isDelivered: map['isDelivered'] ?? false,
-      dateTime: int.parse(map['dateTime']),
+      dateTime: map['dateTime'],
       orderedBy: map['orderedBy'],
     );
   }
@@ -80,25 +80,25 @@ class Order {
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
     final listEquals = const DeepCollectionEquality().equals;
-  
+
     return other is Order &&
-      other.id == id &&
-      listEquals(other.items, items) &&
-      listEquals(other.itemCounts, itemCounts) &&
-      other.totalPrice == totalPrice &&
-      other.isDelivered == isDelivered &&
-      other.dateTime == dateTime &&
-      other.orderedBy == orderedBy;
+        other.id == id &&
+        listEquals(other.items, items) &&
+        listEquals(other.itemCounts, itemCounts) &&
+        other.totalPrice == totalPrice &&
+        other.isDelivered == isDelivered &&
+        other.dateTime == dateTime &&
+        other.orderedBy == orderedBy;
   }
 
   @override
   int get hashCode {
     return id.hashCode ^
-      items.hashCode ^
-      itemCounts.hashCode ^
-      totalPrice.hashCode ^
-      isDelivered.hashCode ^
-      dateTime.hashCode ^
-      orderedBy.hashCode;
+        items.hashCode ^
+        itemCounts.hashCode ^
+        totalPrice.hashCode ^
+        isDelivered.hashCode ^
+        dateTime.hashCode ^
+        orderedBy.hashCode;
   }
 }

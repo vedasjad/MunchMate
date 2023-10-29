@@ -41,5 +41,4 @@ class MenuProvider extends ChangeNotifier {
 
   get selectedItemType => _selectedItemType;
   get selectedItemTypeList => _selectedItemTypeList;
-  get items => _items;
 }

@@ -19,9 +19,7 @@ class MenuScreen extends StatefulWidget {
 }
 
 class _MenuScreenState extends State<MenuScreen> {
-  Future _refresh() async {
-    setState(() {});
-  }
+  Future _refresh() async {}
 
   late Timer _timer;
 
