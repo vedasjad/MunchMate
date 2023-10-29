@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:munchmate/common/colors.dart';
 import 'package:munchmate/common/constants.dart';
@@ -21,10 +23,27 @@ class _MenuScreenState extends State<MenuScreen> {
     setState(() {});
   }
 
+  late Timer _timer;
+
+  void startUpdatingData() {
+    _timer = Timer.periodic(const Duration(milliseconds: 100), (Timer timer) {
+      Provider.of<MenuProvider>(context, listen: false).updateSelectedItemType(
+          Provider.of<MenuProvider>(context, listen: false).selectedItemType,
+          context);
+    });
+  }
+
   @override
-  void didChangeDependencies() {
+  void initState() {
     Provider.of<MenuProvider>(context, listen: false).getAllItems();
-    super.didChangeDependencies();
+    startUpdatingData();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _timer.cancel();
+    super.dispose();
   }
 
   @override
@@ -68,6 +87,7 @@ class _MenuScreenState extends State<MenuScreen> {
                 width: MediaQuery.of(context).size.width,
                 child: GridView.builder(
                   physics: const NeverScrollableScrollPhysics(),
+                  // semanticChildCount: ,
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
                     crossAxisSpacing: screenWidth * 0.03,
@@ -75,9 +95,8 @@ class _MenuScreenState extends State<MenuScreen> {
                     mainAxisExtent: screenHeight / 4.3,
                   ),
                   itemCount: Provider.of<MenuProvider>(context)
-                          .selectedItemTypeList
-                          .length -
-                      items.length,
+                      .selectedItemTypeList
+                      .length,
                   shrinkWrap: true,
                   itemBuilder: (
                     BuildContext ctx,

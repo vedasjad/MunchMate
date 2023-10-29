@@ -188,8 +188,11 @@ class _ItemCardState extends State<ItemCard> {
                   borderRadius: BorderRadius.circular(5),
                 ),
                 child: ElevatedButton(
-                  style: const ButtonStyle(
-                    backgroundColor: MaterialStatePropertyAll(secondaryColor),
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStatePropertyAll(
+                        widget.item.isAvailable
+                            ? secondaryColor
+                            : secondaryColor.withOpacity(0.5)),
                   ),
                   onPressed: () {
                     Provider.of<OrderProvider>(context, listen: false)
