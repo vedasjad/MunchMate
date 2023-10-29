@@ -195,9 +195,13 @@ class _ItemCardState extends State<ItemCard> {
                             : secondaryColor.withOpacity(0.5)),
                   ),
                   onPressed: () {
-                    Provider.of<OrderProvider>(context, listen: false)
-                        .addItemToOrder(widget.item);
-                    showToast('${widget.item.name} added');
+                    if (widget.item.isAvailable) {
+                      Provider.of<OrderProvider>(context, listen: false)
+                          .addItemToOrder(widget.item);
+                      showToast('${widget.item.name} added');
+                    } else {
+                      showToast('${widget.item.name} is not Available');
+                    }
                   },
                   child: Text(
                     'Add',
