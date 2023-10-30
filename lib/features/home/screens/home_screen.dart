@@ -28,19 +28,14 @@ class _HomeScreenState extends State<HomeScreen>
     homeServices.updateUserData(
         Provider.of<LocalUserProvider>(context, listen: false).localUser);
     super.initState();
+    Provider.of<LocalUserProvider>(context, listen: false)
+        .getLastOrders(context);
     _tabController = TabController(
       length: 2,
       vsync: this,
       initialIndex: 0,
       animationDuration: const Duration(seconds: 1),
     );
-  }
-
-  @override
-  void didChangeDependencies() {
-    Provider.of<LocalUserProvider>(context, listen: false)
-        .getLastOrders(context);
-    super.didChangeDependencies();
   }
 
   @override

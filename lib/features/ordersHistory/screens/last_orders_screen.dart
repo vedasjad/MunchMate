@@ -16,8 +16,6 @@ class LastOrders extends StatefulWidget {
 class _LastOrdersState extends State<LastOrders> {
   @override
   void didChangeDependencies() {
-    Provider.of<LocalUserProvider>(context, listen: false)
-        .getLastOrders(context);
     Provider.of<LastOrderCardProvider>(context, listen: false)
         .fillExpandCardList(
             Provider.of<LocalUserProvider>(context, listen: false)
@@ -27,6 +25,18 @@ class _LastOrdersState extends State<LastOrders> {
     super.didChangeDependencies();
   }
 
+  Future refresh() async {
+    Provider.of<LocalUserProvider>(context, listen: false)
+        .getLastOrders(context);
+  }
+
+  @override
+  void initState() {
+    Provider.of<LocalUserProvider>(context, listen: false)
+        .getLastOrders(context);
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -34,7 +44,7 @@ class _LastOrdersState extends State<LastOrders> {
         padding: const EdgeInsets.symmetric(horizontal: 15),
         child: RefreshIndicator(
           color: primaryColor,
-          onRefresh: () async {},
+          onRefresh: () => refresh(),
           child: SingleChildScrollView(
             padding: const EdgeInsets.only(top: 10),
             physics: const BouncingScrollPhysics(
