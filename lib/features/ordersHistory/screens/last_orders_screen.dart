@@ -15,14 +15,9 @@ class LastOrders extends StatefulWidget {
 
 class _LastOrdersState extends State<LastOrders> {
   @override
-  void initState() {
+  void didChangeDependencies() {
     Provider.of<LocalUserProvider>(context, listen: false)
         .getLastOrders(context);
-    super.initState();
-  }
-
-  @override
-  void didChangeDependencies() {
     Provider.of<LastOrderCardProvider>(context, listen: false)
         .fillExpandCardList(
             Provider.of<LocalUserProvider>(context, listen: false)

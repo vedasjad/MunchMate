@@ -10,7 +10,6 @@ class HomeServices {
         FirebaseDatabase.instance.ref("users/$localUserID/orders/${order.id}");
     DatabaseReference ordersDatabaseReference =
         FirebaseDatabase.instance.ref("orders/${order.id}");
-    // final FirebaseFirestore db = FirebaseFirestore.instance;
     await usersDatabaseReference.set(order.toMap());
     await ordersDatabaseReference.set(order.toMap());
   }

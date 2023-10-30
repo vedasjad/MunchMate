@@ -16,8 +16,8 @@ class LocalUserProvider extends ChangeNotifier {
         await lastOrderServices.getLastOrders(_localUser.id);
     if (_localUser.lastOrders.isEmpty) {
       _localUser.lastOrders = realTimeOrders;
-      notifyListeners();
     }
+    notifyListeners();
   }
 
   get localUser => _localUser;

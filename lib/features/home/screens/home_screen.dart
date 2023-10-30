@@ -37,6 +37,13 @@ class _HomeScreenState extends State<HomeScreen>
   }
 
   @override
+  void didChangeDependencies() {
+    Provider.of<LocalUserProvider>(context, listen: false)
+        .getLastOrders(context);
+    super.didChangeDependencies();
+  }
+
+  @override
   void dispose() {
     _tabController.dispose();
     super.dispose();
@@ -309,6 +316,9 @@ class _HomeScreenState extends State<HomeScreen>
                 labelStyle: TextStyle(
                   fontSize: width * 0.045,
                 ),
+                onTap: (i) =>
+                    Provider.of<LocalUserProvider>(context, listen: false)
+                        .getLastOrders(context),
                 tabs: const [
                   Tab(
                     text: 'Menu',

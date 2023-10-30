@@ -41,7 +41,7 @@ class _LastOrderCardState extends State<LastOrderCard> {
       margin: const EdgeInsets.all(5),
       padding: const EdgeInsets.all(15),
       decoration: BoxDecoration(
-        color: whiteColor,
+        color: AppColors.white,
         borderRadius: BorderRadius.circular(15),
         boxShadow: const [
           BoxShadow(
@@ -107,28 +107,43 @@ class _LastOrderCardState extends State<LastOrderCard> {
                 ),
               ),
               Expanded(
-                child: InkWell(
-                  onTap: () {
-                    showDialog(
-                      context: context,
-                      builder: (context) => Dialog(
-                        shape: const RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(15),
-                          ),
+                child: List.from(Provider.of<LocalUserProvider>(context,
+                                listen: true)
+                            .localUser
+                            .lastOrders
+                            .reversed)[widget.index]
+                        .isDelivered
+                    ? Text(
+                        "Received",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontWeight: FontWeight.w600,
+                          fontSize: screenWidth * 0.04,
+                          color: Colors.green,
                         ),
-                        backgroundColor: backgroundColor,
-                        child: QRScreen(
-                          order: order,
+                      )
+                    : InkWell(
+                        onTap: () {
+                          showDialog(
+                            context: context,
+                            builder: (context) => Dialog(
+                              shape: const RoundedRectangleBorder(
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(15),
+                                ),
+                              ),
+                              backgroundColor: backgroundColor,
+                              child: QRScreen(
+                                order: order,
+                              ),
+                            ),
+                          );
+                        },
+                        child: Icon(
+                          Icons.qr_code,
+                          size: screenWidth * 0.15,
                         ),
                       ),
-                    );
-                  },
-                  child: Icon(
-                    Icons.qr_code,
-                    size: screenWidth * 0.15,
-                  ),
-                ),
               ),
             ],
           ),
