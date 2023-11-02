@@ -52,17 +52,11 @@ MunchMate is a Flutter app designed to simplify the snack ordering process for s
 Admins can use the web-based admin panel to manage the canteen items and orders.
 
 - From the admin panel, you can:
-    - Toggle item availability.
-    - Toggle order status (delivered or not delivered).
+  - Toggle item availability.
+  - Toggle order status (delivered or not delivered).
 
 Changes made in the admin panel will be reflected in real-time for users.
 
----
-
-**Project Under Development**
+## Under Development
 
 MunchMate is a one-person project in active development. New features and improvements are in the pipeline. Stay tuned for updates.
-
-Your feedback and support are greatly appreciated!
-
----
