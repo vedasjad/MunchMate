@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:munchmate/models/item.dart';
+import 'package:provider/provider.dart';
+
+import '../../../common/colors.dart';
+import '../../../common/themes.dart';
+import '../../../provider/theme_provider.dart';
 
 class LastOrderItemCard extends StatelessWidget {
   const LastOrderItemCard({
@@ -17,6 +22,10 @@ class LastOrderItemCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final textColor =
+        Provider.of<ThemeProvider>(context).themeData == AppThemes.light
+            ? AppColors.black
+            : AppColors.white.withOpacity(0.8);
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Row(
@@ -46,6 +55,7 @@ class LastOrderItemCard extends StatelessWidget {
                   style: TextStyle(
                     fontSize: width * 0.04,
                     fontWeight: FontWeight.w900,
+                    color: textColor,
                   ),
                 ),
                 SizedBox(
@@ -59,6 +69,7 @@ class LastOrderItemCard extends StatelessWidget {
                       style: TextStyle(
                         fontSize: width * 0.035,
                         fontWeight: FontWeight.w600,
+                        color: textColor,
                       ),
                     ),
                     Text(
@@ -66,6 +77,7 @@ class LastOrderItemCard extends StatelessWidget {
                       style: TextStyle(
                         fontSize: width * 0.04,
                         fontWeight: FontWeight.w900,
+                        color: textColor,
                       ),
                     ),
                   ],

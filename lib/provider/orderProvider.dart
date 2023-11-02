@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import '../models/item.dart';
 import '../models/order.dart';
 import 'localUserProvider.dart';
+import 'menu_provider.dart';
 
 class OrderProvider extends ChangeNotifier {
   final Order _order = Order(
@@ -53,7 +54,8 @@ class OrderProvider extends ChangeNotifier {
                         .length +
                     1)
                 .toString();
-    await homeServices.placeOrder(localUserID, _order);
+    await homeServices.placeOrder(localUserID, _order,
+        Provider.of<MenuProvider>(context, listen: false).items);
     _order.id = "";
     _order.items.clear();
     _order.totalPrice = 0;

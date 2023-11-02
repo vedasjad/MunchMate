@@ -49,7 +49,7 @@ class _LastOrderCardState extends State<LastOrderCard> {
       decoration: BoxDecoration(
         color: Provider.of<ThemeProvider>(context).themeData == AppThemes.light
             ? AppColors.white
-            : AppColors.darkPrimary,
+            : AppColors.black.withOpacity(0.65),
         borderRadius: BorderRadius.circular(15),
         boxShadow: const [
           BoxShadow(
