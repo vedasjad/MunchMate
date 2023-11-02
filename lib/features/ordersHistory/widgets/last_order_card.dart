@@ -7,7 +7,9 @@ import 'package:munchmate/provider/last_order_card_provider.dart';
 import 'package:provider/provider.dart';
 
 import '../../../common/constants.dart';
+import '../../../common/themes.dart';
 import '../../../provider/localUserProvider.dart';
+import '../../../provider/theme_provider.dart';
 
 class LastOrderCard extends StatefulWidget {
   const LastOrderCard({
@@ -33,6 +35,10 @@ class _LastOrderCardState extends State<LastOrderCard> {
 
   @override
   Widget build(BuildContext context) {
+    final textColor =
+        Provider.of<ThemeProvider>(context).themeData == AppThemes.light
+            ? AppColors.black
+            : AppColors.white.withOpacity(0.8);
     DateTime orderDateTime =
         DateTime.fromMillisecondsSinceEpoch(order.dateTime);
     final screenHeight = MediaQuery.of(context).size.height;
@@ -41,7 +47,9 @@ class _LastOrderCardState extends State<LastOrderCard> {
       margin: const EdgeInsets.all(5),
       padding: const EdgeInsets.all(15),
       decoration: BoxDecoration(
-        color: AppColors.white,
+        color: Provider.of<ThemeProvider>(context).themeData == AppThemes.light
+            ? AppColors.white
+            : AppColors.darkPrimary,
         borderRadius: BorderRadius.circular(15),
         boxShadow: const [
           BoxShadow(
@@ -68,18 +76,24 @@ class _LastOrderCardState extends State<LastOrderCard> {
                           style: TextStyle(
                             fontWeight: FontWeight.w900,
                             fontSize: screenWidth * 0.05,
+                            color: textColor,
                           ),
                         ),
                         Text(
                           "( x${order.items.length} ${(order.items.length > 1) ? "Items" : "Item"})",
-                          style: const TextStyle(
+                          style: TextStyle(
                             fontWeight: FontWeight.w600,
+                            color: textColor,
                           ),
                         ),
                       ],
                     ),
                     Text(
-                        "${weekDaysName[orderDateTime.weekday - 1]}, ${orderDateTime.day} ${monthsName[orderDateTime.month - 1]} ${orderDateTime.year}\n ${(orderDateTime.hour > 12) ? (orderDateTime.hour - 12 < 10) ? '0${orderDateTime.hour - 12}' : orderDateTime.hour - 12 : orderDateTime.hour}:${(orderDateTime.minute < 10) ? '0${orderDateTime.minute}' : orderDateTime.minute} ${(orderDateTime.hour > 12) ? "PM" : "AM"}"),
+                      "${weekDaysName[orderDateTime.weekday - 1]}, ${orderDateTime.day} ${monthsName[orderDateTime.month - 1]} ${orderDateTime.year}\n ${(orderDateTime.hour > 12) ? (orderDateTime.hour - 12 < 10) ? '0${orderDateTime.hour - 12}' : orderDateTime.hour - 12 : orderDateTime.hour}:${(orderDateTime.minute < 10) ? '0${orderDateTime.minute}' : orderDateTime.minute} ${(orderDateTime.hour > 12) ? "PM" : "AM"}",
+                      style: TextStyle(
+                        color: textColor,
+                      ),
+                    ),
                     SizedBox(
                       height: screenHeight * 0.01,
                     ),
@@ -91,6 +105,7 @@ class _LastOrderCardState extends State<LastOrderCard> {
                           style: TextStyle(
                             fontWeight: FontWeight.w600,
                             fontSize: screenWidth * 0.045,
+                            color: textColor,
                           ),
                         ),
                       ],
@@ -119,7 +134,7 @@ class _LastOrderCardState extends State<LastOrderCard> {
                         style: TextStyle(
                           fontWeight: FontWeight.w600,
                           fontSize: screenWidth * 0.04,
-                          color: Colors.green,
+                          color: AppColors.secondary,
                         ),
                       )
                     : InkWell(
@@ -142,6 +157,11 @@ class _LastOrderCardState extends State<LastOrderCard> {
                         child: Icon(
                           Icons.qr_code,
                           size: screenWidth * 0.15,
+                          color:
+                              Provider.of<ThemeProvider>(context).themeData ==
+                                      AppThemes.light
+                                  ? AppColors.black
+                                  : AppColors.white,
                         ),
                       ),
               ),

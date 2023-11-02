@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:munchmate/common/colors.dart';
 import 'package:provider/provider.dart';
 
+import '../../../common/themes.dart';
 import '../../../provider/menu_provider.dart';
+import '../../../provider/theme_provider.dart';
 
 class HeaderButton extends StatefulWidget {
   const HeaderButton({
@@ -40,8 +42,14 @@ class _HeaderButtonState extends State<HeaderButton> {
             shape: BoxShape.circle,
             color: (Provider.of<MenuProvider>(context).selectedItemType ==
                     widget.title)
-                ? primaryColor
-                : whiteColor,
+                ? Provider.of<ThemeProvider>(context).themeData ==
+                        AppThemes.light
+                    ? AppColors.primary
+                    : AppColors.darkPrimary
+                : Provider.of<ThemeProvider>(context).themeData ==
+                        AppThemes.light
+                    ? AppColors.white
+                    : AppColors.black,
           ),
           child: Image.asset(
             widget.asset,
@@ -52,7 +60,10 @@ class _HeaderButtonState extends State<HeaderButton> {
         Text(
           widget.title,
           style: TextStyle(
-            color: blackColor,
+            color:
+                Provider.of<ThemeProvider>(context).themeData == AppThemes.light
+                    ? AppColors.black
+                    : AppColors.white,
             fontSize: widget.width * 0.034,
           ),
         ),

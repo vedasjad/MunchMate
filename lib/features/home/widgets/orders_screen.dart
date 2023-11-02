@@ -5,8 +5,10 @@ import 'package:munchmate/common/utils/utils.dart';
 import 'package:munchmate/features/home/widgets/order_card.dart';
 import 'package:provider/provider.dart';
 
+import '../../../common/themes.dart';
 import '../../../provider/localUserProvider.dart';
 import '../../../provider/orderProvider.dart';
+import '../../../provider/theme_provider.dart';
 
 class OrdersScreen extends StatefulWidget {
   const OrdersScreen({
@@ -75,6 +77,10 @@ class _OrdersScreenState extends State<OrdersScreen> {
                   style: TextStyle(
                     fontWeight: FontWeight.w600,
                     fontSize: width * 0.05,
+                    color: Provider.of<ThemeProvider>(context).themeData ==
+                            AppThemes.light
+                        ? AppColors.black
+                        : AppColors.white.withOpacity(0.8),
                   ),
                 ),
                 Row(

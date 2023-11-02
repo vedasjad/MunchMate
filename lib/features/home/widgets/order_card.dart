@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../../common/colors.dart';
+import '../../../common/themes.dart';
 import '../../../provider/orderProvider.dart';
+import '../../../provider/theme_provider.dart';
 
 class OrderCard extends StatefulWidget {
   const OrderCard({
@@ -18,6 +21,10 @@ class _OrderCardState extends State<OrderCard> {
   TextEditingController countController = TextEditingController();
   @override
   Widget build(BuildContext context) {
+    final textColor =
+        Provider.of<ThemeProvider>(context).themeData == AppThemes.light
+            ? AppColors.black
+            : AppColors.white.withOpacity(0.8);
     countController.text = Provider.of<OrderProvider>(context)
         .order
         .itemCounts[widget.index]
@@ -58,6 +65,7 @@ class _OrderCardState extends State<OrderCard> {
                     style: TextStyle(
                       fontWeight: FontWeight.w600,
                       fontSize: width * 0.037,
+                      color: textColor,
                     ),
                   ),
                 ),
@@ -74,8 +82,9 @@ class _OrderCardState extends State<OrderCard> {
                                   .items[widget.index]);
                         },
                         splashRadius: 20,
-                        icon: const Icon(
+                        icon: Icon(
                           Icons.remove,
+                          color: textColor,
                           size: 20,
                         ),
                       ),
@@ -88,6 +97,9 @@ class _OrderCardState extends State<OrderCard> {
                         enableSuggestions: false,
                         decoration: const InputDecoration(
                           border: InputBorder.none,
+                        ),
+                        style: TextStyle(
+                          color: textColor,
                         ),
                       ),
                     ),
@@ -102,8 +114,9 @@ class _OrderCardState extends State<OrderCard> {
                                   .items[widget.index]);
                         },
                         splashRadius: 20,
-                        icon: const Icon(
+                        icon: Icon(
                           Icons.add,
+                          color: textColor,
                           size: 20,
                         ),
                       ),
@@ -119,6 +132,9 @@ class _OrderCardState extends State<OrderCard> {
             children: [
               Text(
                 "Rs. ${Provider.of<OrderProvider>(context).order.items[widget.index].price}",
+                style: TextStyle(
+                  color: textColor,
+                ),
               ),
             ],
           ),

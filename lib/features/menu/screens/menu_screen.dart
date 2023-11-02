@@ -85,7 +85,6 @@ class _MenuScreenState extends State<MenuScreen> {
                 width: MediaQuery.of(context).size.width,
                 child: GridView.builder(
                   physics: const NeverScrollableScrollPhysics(),
-                  // semanticChildCount: ,
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
                     crossAxisSpacing: screenWidth * 0.03,

@@ -6,10 +6,10 @@ import 'package:munchmate/features/home/services/home_services.dart';
 import 'package:munchmate/features/home/widgets/orders_screen.dart';
 import 'package:munchmate/features/menu/screens/menu_screen.dart';
 import 'package:munchmate/features/ordersHistory/screens/last_orders_screen.dart';
+import 'package:munchmate/provider/theme_provider.dart';
 import 'package:provider/provider.dart';
 
 import '../../../common/colors.dart';
-import '../../../common/constants.dart';
 import '../../../provider/localUserProvider.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -62,8 +62,6 @@ class _HomeScreenState extends State<HomeScreen>
               bottomRight: Radius.circular(20),
             ),
           ),
-          backgroundColor: primaryColor,
-          shadowColor: blackColor,
           elevation: 5.0,
           child: ListView(
             physics: const BouncingScrollPhysics(),
@@ -156,9 +154,8 @@ class _HomeScreenState extends State<HomeScreen>
                   height: width * 0.08,
                 ),
                 onTap: () {
-                  setState(() {
-                    darkMode = true;
-                  });
+                  Provider.of<ThemeProvider>(context, listen: false)
+                      .toggleTheme();
                   Navigator.pop(context);
                 },
               ),
@@ -255,11 +252,9 @@ class _HomeScreenState extends State<HomeScreen>
       ),
       drawerDragStartBehavior: DragStartBehavior.start,
       drawerEnableOpenDragGesture: true,
-      backgroundColor: backgroundColor,
       floatingActionButtonAnimator: FloatingActionButtonAnimator.scaling,
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: FloatingActionButton.extended(
-        backgroundColor: primaryColor,
         onPressed: () {
           showDialog(
             context: context,
@@ -269,7 +264,6 @@ class _HomeScreenState extends State<HomeScreen>
                   Radius.circular(15),
                 ),
               ),
-              backgroundColor: backgroundColor,
               child: OrdersScreen(),
             ),
           );
@@ -286,7 +280,6 @@ class _HomeScreenState extends State<HomeScreen>
             SliverAppBar(
               pinned: true,
               floating: true,
-              backgroundColor: primaryColor,
               stretchTriggerOffset: 0.1,
               leading: Builder(builder: (context) {
                 return IconButton(

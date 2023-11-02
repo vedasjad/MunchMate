@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:munchmate/common/colors.dart';
 import 'package:munchmate/models/order.dart';
+import 'package:provider/provider.dart';
 import 'package:qr_flutter/qr_flutter.dart';
+
+import '../../../common/themes.dart';
+import '../../../provider/theme_provider.dart';
 
 class QRScreen extends StatefulWidget {
   const QRScreen({
@@ -35,6 +40,20 @@ class _QRScreenState extends State<QRScreen> {
                 SizedBox(
                   height: height * 0.4,
                   child: QrImageView(
+                    eyeStyle: QrEyeStyle(
+                      eyeShape: QrEyeShape.square,
+                      color: Provider.of<ThemeProvider>(context).themeData ==
+                              AppThemes.light
+                          ? AppColors.black
+                          : AppColors.white,
+                    ),
+                    dataModuleStyle: QrDataModuleStyle(
+                      dataModuleShape: QrDataModuleShape.square,
+                      color: Provider.of<ThemeProvider>(context).themeData ==
+                              AppThemes.light
+                          ? AppColors.black
+                          : AppColors.white,
+                    ),
                     data: widget.order.id,
                     version: QrVersions.auto,
                   ),
@@ -49,6 +68,11 @@ class _QRScreenState extends State<QRScreen> {
                         style: TextStyle(
                           fontWeight: FontWeight.w600,
                           fontSize: width * 0.05,
+                          color:
+                              Provider.of<ThemeProvider>(context).themeData ==
+                                      AppThemes.light
+                                  ? AppColors.black
+                                  : AppColors.white,
                         ),
                       ),
                     ),

@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:munchmate/common/colors.dart';
+import 'package:munchmate/common/themes.dart';
 import 'package:munchmate/features/auth/services/auth_services.dart' as auth;
+import 'package:munchmate/provider/theme_provider.dart';
+import 'package:provider/provider.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -42,7 +45,10 @@ class _LoginScreenState extends State<LoginScreen> {
     var width = MediaQuery.of(context).size.width;
     var height = MediaQuery.of(context).size.height;
     return Scaffold(
-      backgroundColor: primaryColor,
+      backgroundColor:
+          Provider.of<ThemeProvider>(context).themeData == AppThemes.light
+              ? AppColors.primary
+              : AppColors.darkPrimary,
       body: SafeArea(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -81,8 +87,6 @@ class _LoginScreenState extends State<LoginScreen> {
                       borderRadius: BorderRadius.circular(5),
                     ),
                   ),
-                  backgroundColor:
-                      const MaterialStatePropertyAll(backgroundColor),
                 ),
                 onPressed: () {
                   signInWithGoogle();
@@ -93,7 +97,11 @@ class _LoginScreenState extends State<LoginScreen> {
                     Expanded(
                       child: Container(
                         decoration: BoxDecoration(
-                          color: primaryColor,
+                          color:
+                              Provider.of<ThemeProvider>(context).themeData ==
+                                      AppThemes.light
+                                  ? AppColors.primary
+                                  : AppColors.darkPrimary,
                           borderRadius: BorderRadius.circular(5),
                         ),
                         child: const Image(
@@ -110,7 +118,11 @@ class _LoginScreenState extends State<LoginScreen> {
                         'Login with Google',
                         textAlign: TextAlign.center,
                         style: TextStyle(
-                          color: primaryColor,
+                          color:
+                              Provider.of<ThemeProvider>(context).themeData ==
+                                      AppThemes.light
+                                  ? AppColors.primary
+                                  : AppColors.background,
                           fontSize: width * 0.05,
                           fontWeight: FontWeight.w600,
                         ),
