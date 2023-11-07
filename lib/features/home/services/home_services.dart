@@ -19,10 +19,6 @@ class HomeServices {
       DatabaseReference itemDatabaseReference =
           FirebaseDatabase.instance.ref("items/${order.items[i].id}");
       await itemDatabaseReference.update({
-        "deliveredQuantity": items
-                .firstWhere((element) => element.id == order.items[i].id)
-                .deliveredQuantity +
-            order.itemCounts[i],
         "totalQuantity": items
                 .firstWhere((element) => element.id == order.items[i].id)
                 .totalQuantity -
