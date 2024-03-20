@@ -23,6 +23,10 @@ class HomeServices {
                 .firstWhere((element) => element.id == order.items[i].id)
                 .totalQuantity -
             order.itemCounts[i],
+        "pendingDelivery": items
+            .firstWhere((element) => element.id == order.items[i].id)
+            .pendingDelivery +
+            order.itemCounts[i],
       }).onError((error, stackTrace) => debugPrint(error.toString()));
     }
   }

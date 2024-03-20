@@ -8,6 +8,7 @@ class Item {
   final String imageUrl;
   final bool isAvailable;
   final int totalQuantity;
+  final int pendingDelivery;
   final int deliveredQuantity;
   final int lastUpdated;
   Item({
@@ -18,6 +19,7 @@ class Item {
     required this.imageUrl,
     required this.isAvailable,
     required this.totalQuantity,
+    required this.pendingDelivery,
     required this.deliveredQuantity,
     required this.lastUpdated,
   });
@@ -32,6 +34,7 @@ class Item {
     result.addAll({'imageUrl': imageUrl});
     result.addAll({'isAvailable': isAvailable});
     result.addAll({'totalQuantity': totalQuantity});
+    result.addAll({'pendingDelivery': pendingDelivery});
     result.addAll({'deliveredQuantity': deliveredQuantity});
     result.addAll({'lastUpdated': lastUpdated});
 
@@ -47,6 +50,7 @@ class Item {
       imageUrl: map['imageUrl'] ?? '',
       isAvailable: map['isAvailable'] ?? false,
       totalQuantity: map['totalQuantity']?.toInt() ?? 0,
+      pendingDelivery: map['pendingDelivery']?.toInt() ?? 0,
       deliveredQuantity: map['deliveredQuantity']?.toInt() ?? 0,
       lastUpdated: map['lastUpdated']?.toInt() ?? 0,
     );
@@ -64,6 +68,7 @@ class Item {
     String? imageUrl,
     bool? isAvailable,
     int? totalQuantity,
+    int? pendingDelivery,
     int? deliveredQuantity,
     int? lastUpdated,
   }) {
@@ -75,6 +80,7 @@ class Item {
       imageUrl: imageUrl ?? this.imageUrl,
       isAvailable: isAvailable ?? this.isAvailable,
       totalQuantity: totalQuantity ?? this.totalQuantity,
+      pendingDelivery: pendingDelivery ?? this.pendingDelivery,
       deliveredQuantity: deliveredQuantity ?? this.deliveredQuantity,
       lastUpdated: lastUpdated ?? this.lastUpdated,
     );
@@ -82,7 +88,7 @@ class Item {
 
   @override
   String toString() {
-    return 'Item(id: $id, name: $name, category: $category, price: $price, imageUrl: $imageUrl, isAvailable: $isAvailable, totalQuantity: $totalQuantity, deliveredQuantity: $deliveredQuantity, lastUpdated: $lastUpdated)';
+    return 'Item(id: $id, name: $name, category: $category, price: $price, imageUrl: $imageUrl, isAvailable: $isAvailable, totalQuantity: $totalQuantity,pendingDelivery: $pendingDelivery, deliveredQuantity: $deliveredQuantity, lastUpdated: $lastUpdated)';
   }
 
   @override
@@ -97,6 +103,7 @@ class Item {
         other.imageUrl == imageUrl &&
         other.isAvailable == isAvailable &&
         other.totalQuantity == totalQuantity &&
+        other.pendingDelivery == pendingDelivery &&
         other.deliveredQuantity == deliveredQuantity &&
         other.lastUpdated == lastUpdated;
   }
@@ -104,13 +111,14 @@ class Item {
   @override
   int get hashCode {
     return id.hashCode ^
-        name.hashCode ^
-        category.hashCode ^
-        price.hashCode ^
-        imageUrl.hashCode ^
-        isAvailable.hashCode ^
-        totalQuantity.hashCode ^
-        deliveredQuantity.hashCode ^
-        lastUpdated.hashCode;
+    name.hashCode ^
+    category.hashCode ^
+    price.hashCode ^
+    imageUrl.hashCode ^
+    isAvailable.hashCode ^
+    totalQuantity.hashCode ^
+    pendingDelivery.hashCode ^
+    deliveredQuantity.hashCode ^
+    lastUpdated.hashCode;
   }
 }
