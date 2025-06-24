@@ -45,7 +45,7 @@ class _HomeScreenState extends State<HomeScreen>
   }
 
   Future signOut() async {
-    await GoogleSignIn().disconnect();
+    await GoogleSignIn.instance.disconnect();
     await FirebaseAuth.instance.signOut();
   }
 
